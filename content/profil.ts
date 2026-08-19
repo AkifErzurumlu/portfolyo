@@ -101,7 +101,7 @@ export const ILETISIM = {
  * istemcisinde önceden doldurulmuş bir mektup olarak açar. Yani anahtar
  * tanımlanana kadar da hiçbir mesaj kaybolmaz.
  */
-export const FORM_ANAHTARI = ''
+export const FORM_ANAHTARI = '08d0711f-798e-45e2-9c86-392aef51269f'
 
 export const FORM_UC_NOKTASI = 'https://api.web3forms.com/submit'
 
