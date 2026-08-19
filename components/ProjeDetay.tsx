@@ -79,7 +79,7 @@ export default function ProjeDetay({ proje, dil }: { proje: Proje; dil: Dil }) {
           <p className={stil.yiginListe}>{proje.stack.join(' · ')}</p>
 
           {proje.repo || proje.canli ? (
-            <div className={stil.baglantilar} style={{ marginTop: '1.25rem' }}>
+            <div className={`${stil.baglantilar} ${stil.baglantilarBosluk}`}>
               {proje.repo ? (
                 <a className="baglanti" href={proje.repo}>
                   {t(UI.kaynakKod, dil)} ↗
