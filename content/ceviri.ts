@@ -23,7 +23,6 @@ export const UI = {
   sonuc: { tr: 'Sonuç', en: 'Outcome' },
   ogrenilen: { tr: 'Öğrendiğim', en: 'What I learned' },
   bilinenKisit: { tr: 'Bilinen kısıt', en: 'Known limitation' },
-  ekip: { tr: 'Ekip', en: 'Team' },
   kullanilan: { tr: 'Kullanılan', en: 'Built with' },
   rol: { tr: 'Rol', en: 'Role' },
   yil: { tr: 'Yıl', en: 'Year' },

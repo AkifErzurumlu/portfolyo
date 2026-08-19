@@ -75,25 +75,6 @@ export default function ProjeDetay({ proje, dil }: { proje: Proje; dil: Dil }) {
           <p className={stil.metin}>{t(proje.ogrenilen, dil)}</p>
         </Blok>
 
-        {proje.ekip ? (
-          <Blok baslik={t(UI.ekip, dil)}>
-            <div className={stil.ekip}>
-              {proje.ekip.map((uye) => (
-                <div key={uye.ad} className={stil.ekipSatir}>
-                  {uye.site ? (
-                    <a className={`baglanti ${stil.ekipAd}`} href={uye.site}>
-                      {uye.ad} ↗
-                    </a>
-                  ) : (
-                    <span className={stil.ekipAd}>{uye.ad}</span>
-                  )}
-                  <span className={stil.ekipRol}>{t(uye.rol, dil)}</span>
-                </div>
-              ))}
-            </div>
-          </Blok>
-        ) : null}
-
         <Blok baslik={t(UI.kullanilan, dil)}>
           <p className={stil.yiginListe}>{proje.stack.join(' · ')}</p>
 

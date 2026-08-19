@@ -1,11 +1,5 @@
 import type { Metin, MetinListesi } from '@/lib/i18n'
 
-export type EkipUyesi = {
-  ad: string
-  rol: Metin
-  site?: string
-}
-
 export type Proje = {
   slug: string
   ad: string
@@ -28,7 +22,6 @@ export type Proje = {
   repo?: string
   repoNot?: Metin
   canli?: string
-  ekip?: readonly EkipUyesi[]
   oneCikan: boolean
 }
 
@@ -68,8 +61,8 @@ export const PROJELER: readonly Proje[] = [
       ],
     },
     benimIsim: {
-      tr: 'Üç kişilik ekipte backend ve yapay zekâ tarafından sorumluyum: veri modeli, REST API, Gemini entegrasyonu ve yetkilendirme katmanı. Arayüzü Emre Özkaya yazdı; operasyon, içerik ve test tarafını Emin Çapan yürüttü.',
-      en: 'In a three-person team I own the backend and AI side: data model, REST API, Gemini integration and the authorisation layer. Emre Özkaya built the interface; Emin Çapan handled operations, content and QA.',
+      tr: 'Üç kişilik ekipte backend ve yapay zekâ tarafından sorumluyum: veri modeli, REST API, Gemini entegrasyonu ve yetkilendirme katmanı. Arayüz ile operasyon, içerik ve test tarafı ekipteki diğer iki kişide.',
+      en: 'In a three-person team I own the backend and AI side: data model, REST API, Gemini integration and the authorisation layer. The interface and the operations, content and QA side belong to the other two.',
     },
     sonuc: {
       tr: 'Platform kazanım bazlı raporlama ve adaptif içerik önerisi verecek noktaya geldi. Kaynak kod şu an özel; mimari kararların dokümantasyonu herkese açık.',
@@ -85,10 +78,6 @@ export const PROJELER: readonly Proje[] = [
       tr: 'Kaynak kod özel. Mimari dokümantasyonu açık.',
       en: 'Source is private. Architecture docs are public.',
     },
-    ekip: [
-      { ad: 'Emre Özkaya', rol: { tr: 'Frontend', en: 'Frontend' } },
-      { ad: 'Emin Çapan', rol: { tr: 'Operasyon, içerik, test', en: 'Ops, content, QA' } },
-    ],
   },
 
   {
@@ -123,8 +112,8 @@ export const PROJELER: readonly Proje[] = [
       ],
     },
     benimIsim: {
-      tr: 'Beş kişilik Scrum ekibinde Frontend Lead’im. Genetik algoritma motoru ve .NET tarafındaki servisler benim işim değil — o taraf takım arkadaşım Yunus Emre Edizer’in. Benim sorumluluğum, motorun ürettiği çözümü insanın okuyabileceği ve sorgulayabileceği hale getirmekti.',
-      en: 'I am Frontend Lead in a five-person Scrum team. The genetic-algorithm engine and the .NET services are not my work — that side belongs to my teammate Yunus Emre Edizer. My responsibility was making the engine’s solution something a human can read and interrogate.',
+      tr: 'Beş kişilik Scrum ekibinde Frontend Lead’im. Genetik algoritma motoru ve .NET tarafındaki servisler benim işim değil — o taraf ekipteki başka bir arkadaşımın. Benim sorumluluğum, motorun ürettiği çözümü insanın okuyabileceği ve sorgulayabileceği hale getirmekti.',
+      en: 'I am Frontend Lead in a five-person Scrum team. The genetic-algorithm engine and the .NET services are not my work — that side belongs to another member of the team. My responsibility was making the engine’s solution something a human can read and interrogate.',
     },
     sonuc: {
       tr: 'Çakışmasız program üretimi, senaryo karşılaştırma ve dışa aktarma çalışır durumda. Proje Docker ve GitHub Actions üzerinde sürekli entegrasyonla ilerledi.',
@@ -135,13 +124,6 @@ export const PROJELER: readonly Proje[] = [
       en: 'The hardest part of an optimisation system is not the optimisation — it is persuasion. If a user cannot see why a class was placed where it was, they will override it by hand no matter how good the algorithm is. The interface’s job is not to show the answer but to show the reasoning.',
     },
     stack: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'ASP.NET Core 9', 'PostgreSQL 16', 'Docker', 'GitHub Actions'],
-    ekip: [
-      {
-        ad: 'Yunus Emre Edizer',
-        rol: { tr: 'Backend & genetik algoritma motoru', en: 'Backend & genetic algorithm engine' },
-        site: 'https://yunusedizer.software',
-      },
-    ],
   },
 
   {
@@ -189,9 +171,6 @@ export const PROJELER: readonly Proje[] = [
     },
     stack: ['Python', 'PyTorch', 'Jupyter', 'Bi-LSTM', 'Attention'],
     repo: 'https://github.com/AkifErzurumlu/seismic-analysis',
-    ekip: [
-      { ad: 'Team510', rol: { tr: '4 kişilik proje ekibi', en: '4-person project team' } },
-    ],
   },
 
   {

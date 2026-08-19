@@ -99,32 +99,6 @@
   font-size: 1rem;
 }
 
-.ekip {
-  display: grid;
-  gap: 0.7rem;
-  max-width: 64ch;
-}
-
-.ekipSatir {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.4rem 0.9rem;
-  color: var(--murekkep-2);
-}
-
-.ekipAd {
-  color: var(--murekkep);
-}
-
-.ekipRol {
-  font-family: var(--font-mono), monospace;
-  font-size: 0.688rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--murekkep-3);
-}
-
 .baglantilar {
   display: flex;
   flex-wrap: wrap;
