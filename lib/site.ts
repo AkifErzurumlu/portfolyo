@@ -1,8 +1,8 @@
 /**
  * Sitenin kanonik adresi. Tek kaynak: metadataBase, JSON-LD, robots.txt ve
- * sitemap.xml hepsi buradan okur.
+ * sitemap.xml hepsi buradan okur. Alan adı değişirse yalnızca burası
+ * güncellenir, arama motorlarına verilen bütün mutlak adresler düzelir.
  *
- * DEPLOY SONRASI GÜNCELLE. Kendi alan adını aldığında burayı değiştirmen
- * yeterli — arama motorlarına verilen bütün mutlak adresler otomatik düzelir.
+ * Apex (www'suz) kanoniktir; www.erzurumlu.dev buraya 308 ile yönlenir.
  */
-export const SITE_URL = 'https://eminakiferzurumlu.vercel.app'
+export const SITE_URL = 'https://erzurumlu.dev'
