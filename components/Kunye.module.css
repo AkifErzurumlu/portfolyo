@@ -1,0 +1,63 @@
+/* Künye — dergi künyesi gibi. Sitenin nasıl yapıldığını açıkça yazar. */
+
+.kunye {
+  border-top: 1px solid var(--murekkep);
+  padding-block: clamp(2.5rem, 5vw, 3.5rem);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  line-height: 1.8;
+  color: var(--murekkep-2);
+}
+
+.ust {
+  display: grid;
+  grid-template-columns: var(--kenar-notu) minmax(0, 1fr);
+  gap: var(--oluk);
+  align-items: start;
+}
+
+.etiket {
+  font-size: 0.688rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--murekkep-3);
+  text-align: right;
+}
+
+.satirlar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 1.35rem 2rem;
+}
+
+.alan dt {
+  font-size: 0.688rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--murekkep-3);
+}
+
+.alan dd {
+  margin: 0;
+}
+
+.telif {
+  margin-top: 2.25rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--cizgi);
+  color: var(--murekkep-3);
+  font-size: 0.688rem;
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 860px) {
+  .ust {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .etiket {
+    text-align: left;
+  }
+}

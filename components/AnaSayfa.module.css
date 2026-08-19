@@ -1,0 +1,100 @@
+.yaklasim {
+  display: grid;
+  gap: clamp(1.75rem, 3.4vw, 2.5rem);
+}
+
+.ilke {
+  border-top: 1px solid var(--cizgi);
+  padding-top: 1.6rem;
+}
+
+.ilke:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.ilkeBaslik {
+  margin: 0 0 0.6rem;
+}
+
+.ilkeMetin {
+  color: var(--murekkep-2);
+  max-width: 62ch;
+}
+
+.yigin {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 2rem 2.5rem;
+}
+
+.yiginGrup dt {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.688rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--murekkep-3);
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--cizgi);
+  margin-bottom: 0.75rem;
+}
+
+.yiginGrup dd {
+  margin: 0;
+  color: var(--murekkep-2);
+  line-height: 1.9;
+  font-size: 0.9375rem;
+}
+
+.arsiv {
+  display: grid;
+  gap: 0;
+}
+
+.arsivSatir {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: 0.9rem;
+  border-top: 1px solid var(--cizgi);
+}
+
+.arsivSatir:first-child {
+  border-top: 0;
+}
+
+.arsivAd {
+  color: var(--murekkep-2);
+}
+
+.arsivYigin {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.688rem;
+  letter-spacing: 0.04em;
+  color: var(--murekkep-3);
+  white-space: nowrap;
+}
+
+.iletisimMetin {
+  color: var(--murekkep-2);
+  max-width: 46ch;
+}
+
+/* Form solda, bilgi bloğu sağda. Bilgi sütunu sabit genişlikte: içeriği kısa
+   ve monospace olduğu için esnemesine gerek yok, sabit kalması form ile
+   arasındaki dikey hairline'ı her ekranda aynı yerde tutuyor. */
+.iletisimIzgara {
+  margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 13.5rem;
+  gap: clamp(1.75rem, 3.5vw, 3rem);
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .iletisimIzgara {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+

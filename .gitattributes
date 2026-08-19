@@ -1,0 +1,10 @@
+# Depoda satır sonu daima LF. Windows'ta çalışırken çalışma kopyası CRLF
+# olabilir; bu ayar farklı işletim sistemlerinde sahte diff çıkmasını önler.
+* text=auto eol=lf
+
+# İkili dosyalar dönüştürülmez.
+*.png binary
+*.pdf binary
+*.ttf binary
+*.woff binary
+*.woff2 binary

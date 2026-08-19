@@ -1,0 +1,144 @@
+/* Kâğıda doldurulan form estetiği: kutu, gölge ve yuvarlak köşe yok —
+   yalnızca alt çizgi. Odaklanınca çizgi vurgu rengine geçer. */
+
+.form {
+  display: grid;
+  gap: 1.4rem;
+  max-width: 62ch;
+}
+
+.satir {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.4rem;
+}
+
+.alan {
+  display: grid;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.etiket {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.688rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--murekkep-3);
+}
+
+.zorunlu {
+  color: var(--vurgu);
+}
+
+.girdi {
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--murekkep);
+  background: transparent;
+  border: 0;
+  /* --cizgi-koyu değil: o renk kâğıda karşı 1.89:1 veriyor ve WCAG 1.4.11'in
+     arayüz bileşenleri için istediği 3:1 eşiğinin altında kalıyor. Bu çizgi
+     girdinin nerede olduğunu gösteren tek işaret, görünmek zorunda. */
+  border-bottom: 1px solid var(--murekkep-3);
+  border-radius: 0;
+  padding: 0.55rem 0;
+  transition: border-color var(--gecis);
+  width: 100%;
+}
+
+.girdi::placeholder {
+  color: var(--murekkep-3);
+  opacity: 1;
+}
+
+.girdi:hover {
+  border-color: var(--murekkep);
+}
+
+.girdi:focus {
+  outline: none;
+  border-color: var(--vurgu);
+  border-bottom-width: 2px;
+  padding-bottom: calc(0.55rem - 1px);
+}
+
+.girdi:disabled {
+  opacity: 0.55;
+}
+
+textarea.girdi {
+  min-height: 7.5rem;
+  resize: vertical;
+  line-height: 1.65;
+}
+
+/* Bal küpü: gerçek kullanıcılar göremez, botlar doldurur. `display: none`
+   yerine ekran dışına alındı — bazı botlar gizli alanları atlar. */
+.balKupu {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.eylem {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin-top: 0.35rem;
+}
+
+.dugme {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--murekkep);
+  background: transparent;
+  border: 1px solid var(--murekkep);
+  border-radius: 0;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  transition: background var(--gecis), color var(--gecis), opacity var(--gecis);
+}
+
+.dugme:hover:not(:disabled),
+.dugme:focus-visible:not(:disabled) {
+  background: var(--murekkep);
+  color: var(--kagit);
+}
+
+.dugme:disabled {
+  cursor: progress;
+  opacity: 0.5;
+}
+
+.durum {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.durumBasarili {
+  color: var(--vurgu);
+}
+
+.durumHata {
+  color: var(--vurgu);
+}
+
+.durumHata a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 620px) {
+  .satir {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

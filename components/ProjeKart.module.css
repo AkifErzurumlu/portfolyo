@@ -1,0 +1,86 @@
+/* Kart değil satır. Çerçeve ve gölge yok; projeleri ayıran şey hairline.
+   Hover'da sadece çizgi koyulaşır ve başlık vurgu rengine geçer —
+   yükselme, ölçek, gölge yok. */
+
+.kart {
+  display: block;
+  padding-block: clamp(1.75rem, 3.4vw, 2.5rem);
+  border-top: 1px solid var(--cizgi);
+  transition: border-color var(--gecis);
+}
+
+.kart:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.kart:hover,
+.kart:focus-visible {
+  border-color: var(--cizgi-koyu);
+}
+
+.ust {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.ad {
+  margin: 0;
+  transition: color var(--gecis);
+}
+
+.kart:hover .ad,
+.kart:focus-visible .ad {
+  color: var(--vurgu);
+}
+
+.yil {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.688rem;
+  letter-spacing: 0.08em;
+  color: var(--murekkep-3);
+  white-space: nowrap;
+}
+
+.ozet {
+  color: var(--murekkep-2);
+  max-width: 58ch;
+  font-size: 1.0625rem;
+}
+
+.alt {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.55rem 1.1rem;
+  margin-top: 1.15rem;
+}
+
+/* Teknoloji adları BÜYÜTÜLMEZ. İki sebep: (1) `lang="tr"` altında tarayıcı
+   Türkçe harf kuralı uygular ve "SQLite" → "SQLİTE" olur; (2) Next.js, PyTorch,
+   sqflite gibi isimlerin harf düzeni kasıtlıdır, büyütmek markayı bozar. */
+.yigin {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.688rem;
+  letter-spacing: 0.04em;
+  color: var(--murekkep-3);
+}
+
+.oku {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.688rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--vurgu);
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+@media (max-width: 860px) {
+  .oku {
+    margin-left: 0;
+  }
+}

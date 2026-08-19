@@ -1,0 +1,60 @@
+.ustluk {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--kagit);
+  border-bottom: 1px solid var(--murekkep);
+}
+
+.ic {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: 1.05rem;
+}
+
+.ad {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.sag {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(1rem, 2.6vw, 1.75rem);
+}
+
+.gezinme {
+  display: flex;
+  gap: clamp(1rem, 2.6vw, 1.75rem);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  color: var(--murekkep-2);
+}
+
+.dil {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--murekkep-2);
+  border: 1px solid var(--cizgi-koyu);
+  padding: 0.22rem 0.6rem;
+  transition: border-color var(--gecis), color var(--gecis);
+}
+
+.dil:hover,
+.dil:focus-visible {
+  border-color: var(--vurgu);
+  color: var(--vurgu);
+}
+
+@media (max-width: 640px) {
+  .gezinme {
+    display: none;
+  }
+}

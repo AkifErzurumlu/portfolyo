@@ -1,0 +1,46 @@
+/* Hero'daki meta bloğunun kapanıştaki eşi: sol dikey hairline, monospace
+   etiketler, dolgu ve ikon yok. Sayfa aynı kalıbı iki kez kullanarak
+   kendi içinde kafiye yapıyor. */
+
+.bilgiler {
+  border-left: 1px solid var(--cizgi);
+  padding-left: 1.4rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  line-height: 1.75;
+  color: var(--murekkep-2);
+  display: grid;
+  gap: 1.3rem;
+  align-content: start;
+}
+
+.etiket {
+  display: block;
+  font-size: 0.688rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--murekkep-3);
+  margin-bottom: 0.15rem;
+}
+
+.deger {
+  margin: 0;
+  color: var(--murekkep-2);
+}
+
+.baglantiListe {
+  display: grid;
+  gap: 0.35rem;
+  justify-items: start;
+}
+
+@media (max-width: 900px) {
+  .bilgiler {
+    border-left: 0;
+    border-top: 1px solid var(--cizgi);
+    padding-left: 0;
+    padding-top: 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+    gap: 1.4rem 2rem;
+  }
+}

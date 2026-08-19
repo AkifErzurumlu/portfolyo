@@ -1,0 +1,238 @@
+/* ---------------------------------------------------------------------------
+   Kâğıt & Mürekkep — tasarım token'ları
+   Karar kaydı: docs/tasarim-karari.md
+   Yasak: gradient, gölge, glassmorphism, parlama.
+   Ayrışma tipografi, boşluk ve tek vurgu renginden gelir.
+--------------------------------------------------------------------------- */
+
+:root {
+  --kagit: #f4f1ea;
+  --kagit-2: #eae6dc;
+  --murekkep: #16150f;
+  --murekkep-2: #4a473e;
+  /* Açık temada #8A857A denendi ve elendi: kâğıt zemine karşı 3.26:1 kontrast
+     veriyordu. Kenar notları 11px olduğu için WCAG AA eşiği 4.5:1 — bu renk
+     sitenin imza motifini okunamaz kılıyordu. #6E6A5E ile 4.79:1. */
+  --murekkep-3: #6e6a5e;
+  --cizgi: #d6d0c1;
+  --cizgi-koyu: #b9b1a0;
+  --vurgu: #9a3324;
+  --vurgu-zemin: #ede2dd;
+
+  --olcu: 1180px;
+  --oluk: 2.75rem;
+  --kenar-notu: 11rem;
+
+  --gecis: 180ms cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --kagit: #16150f;
+    --kagit-2: #1f1e17;
+    --murekkep: #f4f1ea;
+    --murekkep-2: #b8b2a4;
+    --murekkep-3: #8a857a;
+    --cizgi: #332f26;
+    --cizgi-koyu: #4a4538;
+    /* Koyu temada #C4553A elendi: koyu kâğıda karşı 4.10:1, kısıt kutusunun
+       zeminine karşı 3.79:1 kalıyordu. Aynı toprak kırmızısının aydınlatılmış
+       hali olan #D2704F ikisinde de eşiği geçiyor (5.48:1 ve 4.96:1). */
+    --vurgu: #d2704f;
+    --vurgu-zemin: #241b16;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--kagit);
+  color: var(--murekkep);
+  font-family: var(--font-govde), ui-sans-serif, system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.68;
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Tipografi ölçeği ---------------------------------------------------- */
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-baslik), ui-serif, Georgia, serif;
+  font-weight: 300;
+  letter-spacing: -0.022em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 6.2vw, 4.6rem);
+}
+
+h2 {
+  font-size: clamp(1.9rem, 3.6vw, 2.7rem);
+}
+
+h3 {
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  line-height: 1.12;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* Monospace etiket: bölüm adları, meta bilgi, kenar notları. */
+.etiket {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.688rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--murekkep-3);
+}
+
+/* --- Bağlantılar --------------------------------------------------------- */
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.baglanti {
+  display: inline;
+  background-image: linear-gradient(var(--vurgu), var(--vurgu));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 1px;
+  transition: background-size var(--gecis), color var(--gecis);
+}
+
+.baglanti:hover,
+.baglanti:focus-visible {
+  background-size: 100% 1px;
+  color: var(--vurgu);
+}
+
+:focus-visible {
+  outline: 2px solid var(--vurgu);
+  outline-offset: 3px;
+}
+
+/* --- Ortak yardımcılar --------------------------------------------------- */
+
+.kabuk {
+  max-width: var(--olcu);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 2.75rem);
+}
+
+.cizgi {
+  border: 0;
+  border-top: 1px solid var(--cizgi);
+}
+
+/* Özel isimler — marka adları, e-posta, teknoloji adları — asla büyütülmez.
+   `lang="tr"` altında tarayıcı i → İ dönüşümü yapar: "GitHub" → "GİTHUB",
+   "eminakif2004@..." → "EMİNAKİF2004@...". Türkçe kelimeler için doğru olan bu
+   kural, İngilizce özel isimler için yanlıştır.
+
+   Sınıf iki kez yazıldı — bu bir yazım hatası değil. CSS Modules içindeki
+   `.alan dt` gibi seçicilerin özgüllüğü (0,0,1,1) tek sınıflı bir yardımcıyı
+   (0,0,1,0) ezer; `.marka.marka` (0,0,2,0) ise onları geçer. Böylece yardımcı
+   sınıf hangi bileşende kullanılırsa kullanılsın çalışır. */
+.marka.marka {
+  text-transform: none;
+  letter-spacing: 0.03em;
+}
+
+.gizli {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.atlaBaglantisi {
+  position: absolute;
+  left: 0.75rem;
+  top: -4rem;
+  z-index: 50;
+  background: var(--kagit);
+  color: var(--murekkep);
+  border: 1px solid var(--murekkep);
+  padding: 0.6rem 1rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  transition: top var(--gecis);
+}
+
+.atlaBaglantisi:focus {
+  top: 0.75rem;
+}
+
+/* --- Hareket ------------------------------------------------------------- */
+/* Girişler yalnızca süsleme. Hiçbir veri animasyona bağlı değil —
+   sayfadaki bütün rakamlar HTML'de gerçek değeriyle durur. */
+
+.giris {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: belir 320ms cubic-bezier(0.2, 0, 0.2, 1) forwards;
+}
+
+@keyframes belir {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .giris {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* --- Baskı --------------------------------------------------------------- */
+
+@media print {
+  .baskidaGizle {
+    display: none;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+}

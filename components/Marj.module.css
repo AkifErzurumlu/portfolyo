@@ -1,0 +1,42 @@
+/* Kenar notu ızgarası — sitenin imza motifi.
+   Sol sütun monospace not, sağ sütun içerik. Not sağa yaslanır: içerik
+   sütunuyla arasında temiz bir dikey kenar oluşur, klasik editoryal düzen. */
+
+.marj {
+  display: grid;
+  grid-template-columns: var(--kenar-notu) minmax(0, 1fr);
+  gap: var(--oluk);
+  align-items: start;
+}
+
+.not {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.688rem;
+  line-height: 1.72;
+  letter-spacing: 0.04em;
+  color: var(--murekkep-3);
+  white-space: pre-line;
+  text-align: right;
+  padding-top: 0.5rem;
+}
+
+.notVurgulu {
+  color: var(--vurgu);
+}
+
+.icerik {
+  min-width: 0;
+}
+
+@media (max-width: 860px) {
+  .marj {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.55rem;
+  }
+
+  .not {
+    text-align: left;
+    padding-top: 0;
+    order: -1;
+  }
+}

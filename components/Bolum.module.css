@@ -1,0 +1,41 @@
+.bolum {
+  padding-block: clamp(3.25rem, 7vw, 5.5rem);
+  border-top: 1px solid var(--cizgi);
+}
+
+.bolum:first-of-type {
+  border-top: 0;
+}
+
+.baslikSatiri {
+  display: grid;
+  grid-template-columns: var(--kenar-notu) minmax(0, 1fr);
+  gap: var(--oluk);
+  align-items: baseline;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.etiket {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.688rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--murekkep-3);
+  text-align: right;
+}
+
+.baslik {
+  margin: 0;
+}
+
+@media (max-width: 860px) {
+  .baslikSatiri {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.6rem;
+  }
+
+  .etiket {
+    text-align: left;
+  }
+}
