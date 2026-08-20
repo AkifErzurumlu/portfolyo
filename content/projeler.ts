@@ -223,6 +223,8 @@ export const PROJELER: readonly Proje[] = [
       en: 'The app’s "Financial Intelligence Assistant" is not an AI model but an engine of hand-written rules. The name is ambitious; what it does is threshold checking.',
     },
     stack: ['HTML', 'CSS', 'JavaScript', 'Canvas 2D API', 'localStorage'],
+    repo: 'https://github.com/AkifErzurumlu/fintrack',
+    canli: 'https://akiferzurumlu.github.io/fintrack/',
   },
 
   {
