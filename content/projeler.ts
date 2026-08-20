@@ -280,14 +280,14 @@ export const PROJELER: readonly Proje[] = [
     yil: '2026',
     oneCikan: false,
     kenarNotu: {
-      tr: 'bilinen kısıt\naçıkça yazılı',
-      en: 'known limitation\nstated openly',
+      tr: 'Argon2id + AES-GCM\nşifreli kasa',
+      en: 'Argon2id + AES-GCM\nencrypted vault',
     },
     tur: { tr: 'Bireysel', en: 'Solo' },
     rol: { tr: 'Mobil geliştirme', en: 'Mobile development' },
     ozet: {
-      tr: 'Flutter ile çok kullanıcılı yerel şifre yöneticisi. Bilinen bir güvenlik kısıtı var ve bunu saklamıyorum.',
-      en: 'A multi-user local password manager in Flutter. It has a known security limitation, and I am not hiding it.',
+      tr: 'Flutter ile çok kullanıcılı yerel şifre yöneticisi. Kayıtlar cihazda AES-256-GCM ile şifreli; anahtar ana paroladan Argon2id ile türetiliyor.',
+      en: 'A multi-user local password manager in Flutter. Records are encrypted on-device with AES-256-GCM, under a key derived from the master password with Argon2id.',
     },
     problem: {
       tr: 'Şifre yöneticilerinin çoğu bulut tabanlı. Tek cihazda kalan, internet bağlantısı gerektirmeyen ve aynı telefonu paylaşan birden fazla kişiyi destekleyen bir kasa yazmak istedim.',
@@ -295,14 +295,16 @@ export const PROJELER: readonly Proje[] = [
     },
     yaklasim: {
       tr: [
-        'Flutter ve Dart ile tek kod tabanından mobil uygulama.',
-        'Kayıtlar cihazda SQLite (sqflite) veritabanında; hiçbir veri dışarı çıkmıyor.',
-        'Çok kullanıcılı yapı: her kullanıcının kayıtları kendi hesabına bağlı.',
+        'Kasa anahtarı ana paroladan Argon2id ile türetiliyor (19 MiB, 2 tur). Her kullanıcının kendi rastgele tuzu var, yani aynı parolayı kullanan iki kişi aynı anahtarı üretmiyor.',
+        'Kayıtlar AES-256-GCM ile şifreleniyor. Her yazmada yeni nonce üretiliyor, böylece iki hesabın şifresinin aynı olduğu bilgisi bile sızmıyor.',
+        'Parola hiç saklanmıyor, hash’i de saklanmıyor: doğrulama, anahtarla şifrelenmiş sabit bir işaretin çözülüp çözülemediğine bakılarak yapılıyor.',
+        'Düz metin saklayan eski sürümden gelen kayıtlar için tek transaction içinde çalışan bir göç yazdım — veri kaybı olmadan şifreleniyor.',
       ],
       en: [
-        'A mobile app from a single Flutter and Dart codebase.',
-        'Records live in an on-device SQLite (sqflite) database; nothing leaves the phone.',
-        'A multi-user structure where each user’s records belong to their own account.',
+        'The vault key is derived from the master password with Argon2id (19 MiB, 2 passes). Every user gets their own random salt, so two people with the same password never share a key.',
+        'Records are encrypted with AES-256-GCM. A fresh nonce per write means even the fact that two accounts share a password does not leak.',
+        'The password is never stored, and neither is a hash of it: login works by checking whether a fixed marker encrypted under the key can be decrypted.',
+        'For records coming from the old plain-text version I wrote a migration that runs in a single transaction — nothing is lost.',
       ],
     },
     benimIsim: {
@@ -310,18 +312,18 @@ export const PROJELER: readonly Proje[] = [
       en: 'A solo project, entirely mine.',
     },
     sonuc: {
-      tr: 'Kayıt ekleme, arama, düzenleme ve çok kullanıcılı erişim çalışıyor. Uygulama tamamen çevrimdışı.',
-      en: 'Adding, searching, editing records and multi-user access all work. The app is fully offline.',
+      tr: 'Kasa artık şifreli. Şifreleme katmanı testli: şifrele-çöz turu, nonce rastgeleliği, yanlış parola reddi, kurcalama tespiti ve anahtar türetme maliyetinin ölçümü. Uygulama tamamen çevrimdışı.',
+      en: 'The vault is encrypted now, and the crypto layer is covered by tests: round-trip, nonce randomness, wrong-password rejection, tamper detection and a measurement of key-derivation cost. The app is still fully offline.',
     },
     ogrenilen: {
-      tr: 'Bir şifre yöneticisinin tek işi şifreleri korumaktır; benim sürümüm bu işi yapmıyor. Bunu fark etmek, kendi kodumu bir saldırganın gözünden okumayı öğretti: "veritabanı cihazda kalıyor" ifadesi, cihaza erişen birinin veriyi okuyamayacağı anlamına gelmiyor. Tehdit modelini yazmadan güvenlik kararı verilemiyormuş.',
-      en: 'A password manager has exactly one job — protecting passwords — and my version does not do it. Realising that taught me to read my own code as an attacker would: "the database stays on the device" does not mean someone with the device cannot read it. You cannot make a security decision without first writing down the threat model.',
+      tr: 'Şifrelemeyi eklerken asıl dersi beklemediğim yerde aldım: uygulamada 4 haneli PIN vardı ve anahtarı ondan türetmek şifrelemeyi göstermelik yapacaktı. Kendi cihazımda ölçtüm — Argon2id tek türetmede ~220 ms sürüyor, yani 10.000 olasılığın tamamı 37 dakikada taranıyor. Anahtarın gücü KDF’ten değil parolanın entropisinden geliyormuş; KDF yalnızca çarpanı sağlıyor. PIN’i kaldırıp ana parolaya geçtim ve bu ölçümü kıran bir test bıraktım.',
+      en: 'The real lesson came from an unexpected place. The app used a 4-digit PIN, and deriving the key from it would have made the encryption theatre. I measured it on my own machine: one Argon2id derivation takes ~220 ms, so all 10,000 possibilities fall in 37 minutes. A key’s strength comes from the password’s entropy, not from the KDF — the KDF only supplies the multiplier. I dropped the PIN for a master password and left a test that fails if that measured cost ever regresses.',
     },
     kisit: {
-      tr: 'Bu sürüm şifreleri SQLite veritabanında düz metin olarak saklıyor. Cihaza fiziksel veya root erişimi olan biri tüm kayıtları okuyabilir; yani uygulama bugün gerçek kullanım için uygun değildir. Planlanan çözüm: kullanıcının ana parolasından Argon2id ile anahtar türetip kayıtları AES-GCM ile şifrelemek.',
-      en: 'This version stores passwords in plain text in the SQLite database. Anyone with physical or root access to the device can read every record, so the app is not fit for real use today. The planned fix: derive a key from the user’s master password with Argon2id and encrypt records with AES-GCM.',
+      tr: 'Şifreleme eklendi ama güvenlik yüzeyi bundan ibaret değil. Kasa anahtarı işletim sisteminin güvenli deposunda (Keystore / Keychain) değil, yalnızca süreç belleğinde tutuluyor. Kopyalanan şifre panoda süresiz kalıyor, ekran görüntüsü engellenmiyor ve uygulama arka plana alınınca kasa kendiliğinden kilitlenmiyor. Hepsi README’de madde madde yazılı.',
+      en: 'Encryption is in, but that is not the whole security surface. The vault key lives only in process memory, not in the OS keystore. A copied password stays on the clipboard indefinitely, screenshots are not blocked, and the vault does not auto-lock when the app goes to the background. All of it is listed in the README.',
     },
-    stack: ['Flutter', 'Dart', 'SQLite', 'sqflite'],
+    stack: ['Flutter', 'Dart', 'SQLite', 'sqflite', 'Argon2id', 'AES-256-GCM'],
     repo: 'https://github.com/AkifErzurumlu/sifre-kasam',
   },
 ]
