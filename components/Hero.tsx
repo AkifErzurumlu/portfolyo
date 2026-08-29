@@ -7,7 +7,7 @@ export default function Hero({ dil }: { dil: Dil }) {
   return (
     <section className={stil.hero}>
       <div className={`kabuk ${stil.ic}`}>
-        <div className="giris">
+        <div className={`giris ${stil.icerikKatman}`}>
           <h1 className={stil.baslik}>
             {t(HERO.baslikOnce, dil)} <em className={stil.vurgu}>{t(HERO.baslikVurgu, dil)}</em>{' '}
             {t(HERO.baslikSonra, dil)}

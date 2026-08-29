@@ -15,7 +15,7 @@ export default function Bolum({
   return (
     <section id={id} className={stil.bolum}>
       <div className="kabuk">
-        <div className={stil.baslikSatiri}>
+        <div className={`belir ${stil.baslikSatiri}`}>
           <p className={stil.etiket}>{etiket}</p>
           {baslik ? <h2 className={stil.baslik}>{baslik}</h2> : null}
         </div>

@@ -37,6 +37,45 @@
   gap: 1.15rem;
 }
 
+/* Paralaks: hero kaydırılırken iki sütun zıt yönlerde hareket eder. Derinlik
+   hissi buradan gelir — aynı hızda kayan katmanları göz tek düzlem olarak
+   okur; hız (ve burada yön) farkı arka-ön ayrımı yaratır.
+   Zıt yön, tek yönlü kaymaya göre aynı piksel bütçesiyle iki kat fark
+   üretiyor: 110px meta + 50px içerik = 160px görece hareket. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .meta {
+      animation: metaPara linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+
+    .icerikKatman {
+      animation: icerikPara linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+  }
+}
+
+@keyframes icerikPara {
+  from {
+    transform: translateY(25px);
+  }
+  to {
+    transform: translateY(-25px);
+  }
+}
+
+@keyframes metaPara {
+  from {
+    transform: translateY(-55px);
+  }
+  to {
+    transform: translateY(55px);
+  }
+}
+
 .metaEtiket {
   display: block;
   font-size: 0.688rem;

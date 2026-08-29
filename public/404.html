@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, follow">
+<title>Sayfa bulunamadı — Emin Akif Erzurumlu</title>
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<style>
+/*
+  Bağımsız 404 sayfası.
+
+  Neden ayrı bir dosya: uygulamada iki kök layout var ((tr) ve (en)), çünkü
+  <html lang> değerinin rotaya göre değişmesi gerekiyor. Next.js bu durumda
+  app/not-found.tsx'i kabul etmiyor ("doesn't have a root layout") ve
+  out/404.html'i kendi İngilizce varsayılanıyla üretiyor. Bu dosya public/
+  içinde durduğu için dışa aktarımda o varsayılanın yerini alıyor.
+
+  Yazı tipleri sistem yedekleriyle: next/font dosya adlarına derleme sırasında
+  hash ekliyor, statik bir dosyadan güvenilir biçimde referans verilemez.
+  Georgia, Newsreader'ın yerine geçen en yakın yaygın serif.
+*/
+:root {
+  --kagit: #f4f1ea;
+  --murekkep: #16150f;
+  --murekkep-2: #4a473e;
+  --murekkep-3: #6e6a5e;
+  --cizgi: #d6d0c1;
+  --vurgu: #9a3324;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --kagit: #16150f;
+    --murekkep: #f4f1ea;
+    --murekkep-2: #b8b2a4;
+    --murekkep-3: #8a857a;
+    --cizgi: #332f26;
+    --vurgu: #d2704f;
+  }
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--kagit);
+  color: var(--murekkep);
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.68;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--vurgu); color: var(--kagit); }
+main {
+  max-width: 1180px;
+  margin-inline: auto;
+  padding: clamp(3rem, 8vw, 6rem) clamp(1.25rem, 4vw, 2.75rem);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.etiket {
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.688rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--murekkep-3);
+  margin-bottom: 1.25rem;
+}
+h1 {
+  font-family: Newsreader, ui-serif, Georgia, serif;
+  font-weight: 300;
+  font-size: clamp(2.6rem, 6.2vw, 4.6rem);
+  letter-spacing: -0.022em;
+  line-height: 1.02;
+  max-width: 16ch;
+  margin-bottom: 1.5rem;
+  text-wrap: balance;
+}
+h1 em { font-style: italic; color: var(--vurgu); }
+p.aciklama {
+  color: var(--murekkep-2);
+  max-width: 48ch;
+  font-size: 1.0625rem;
+  text-wrap: pretty;
+}
+hr {
+  border: 0;
+  border-top: 1px solid var(--cizgi);
+  margin: clamp(2rem, 4vw, 2.75rem) 0 1.75rem;
+}
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.75rem;
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+  background-image: linear-gradient(var(--vurgu), var(--vurgu));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 1px;
+  transition: background-size 180ms cubic-bezier(0.2, 0, 0.2, 1), color 180ms;
+}
+a:hover, a:focus-visible { background-size: 100% 1px; color: var(--vurgu); }
+:focus-visible { outline: 2px solid var(--vurgu); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  a { transition: none; }
+}
+</style>
+</head>
+<body>
+<main>
+  <p class="etiket">404 — Sayfa bulunamadı</p>
+  <h1>Bu adreste <em>bir şey</em> yok.</h1>
+  <p class="aciklama">
+    Aradığınız sayfa taşınmış ya da hiç var olmamış olabilir.
+    Aşağıdan devam edebilirsiniz.
+  </p>
+  <hr>
+  <nav>
+    <a href="/">Ana sayfa</a>
+    <a href="/#calismalar">Çalışmalar</a>
+    <a href="/#iletisim">İletişim</a>
+    <a href="/en/">English</a>
+  </nav>
+</main>
+</body>
+</html>

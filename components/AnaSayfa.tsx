@@ -46,7 +46,7 @@ export default function AnaSayfa({ dil }: { dil: Dil }) {
       <Bolum id="yigin" etiket={t(UI.yigin, dil)}>
         <dl className={stil.yigin}>
           {YIGIN.map((grup) => (
-            <div key={grup.baslik.tr} className={stil.yiginGrup}>
+            <div key={grup.baslik.tr} className={`belir ${stil.yiginGrup}`}>
               <dt>{t(grup.baslik, dil)}</dt>
               <dd>{grup.ogeler.join(' · ')}</dd>
             </div>
@@ -57,7 +57,7 @@ export default function AnaSayfa({ dil }: { dil: Dil }) {
       <Bolum id="arsiv" etiket={t(UI.eskiCalismalar, dil)}>
         <div className={stil.arsiv}>
           {ARSIV.map((oge) => (
-            <div key={oge.ad.tr} className={stil.arsivSatir}>
+            <div key={oge.ad.tr} className={`belir ${stil.arsivSatir}`}>
               <span className={stil.arsivAd}>{t(oge.ad, dil)}</span>
               <span className={stil.arsivYigin}>{oge.stack}</span>
             </div>

@@ -67,6 +67,43 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Metin seçimi. Varsayılan tarayıcı mavisi kâğıt paletinin içinde yabancı
+   duruyor; seçim de sayfanın bir parçası. */
+::selection {
+  background: var(--vurgu);
+  color: var(--kagit);
+}
+
+/* Kaydırma çubuğu da sayfanın kenarı. Varsayılan gri, kâğıdın yanında
+   yamalı görünüyor. */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--cizgi-koyu) var(--kagit);
+}
+
+/* Çıpaya (menüden bölüme) atlarken hedefin üstünde nefes payı bırakır.
+   Üstlük `sticky` ve 64px; bu olmadan bölümün ilk 64 pikseli üstlüğün
+   altında kalıyor ve başlık yarım görünüyordu. 64 + 24px pay = 88px. */
+:target,
+section[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+/* Yüksek kontrast modu (Windows). Bu modda tarayıcı renkleri kendi paletiyle
+   değiştirir; hairline'lara dayanan bir tasarımda kenarlar tamamen
+   kaybolabilir. Sistem renklerini açıkça talep ederek yapıyı koruyoruz. */
+@media (forced-colors: active) {
+  .kabuk hr,
+  .cizgi {
+    border-color: CanvasText;
+  }
+
+  .baglanti:hover,
+  .baglanti:focus-visible {
+    color: LinkText;
+  }
+}
+
 /* --- Tipografi ölçeği ---------------------------------------------------- */
 
 h1,
@@ -79,6 +116,21 @@ h4 {
   line-height: 1.02;
   text-wrap: balance;
 }
+
+/*
+   NOT — denendi ve kaldırıldı: `font-variant-numeric: oldstyle-nums` ve
+   `font-optical-sizing: auto`.
+
+   Kâğıt tipografisine ikisi de çok yakışırdı, ama ölçüm yaptığımda hiçbir
+   etkileri olmadığı görüldü: `oldstyle-nums`, `font-feature-settings:"onum"`
+   ve hatta `tabular-nums` ile "0123456789" dizgesinin genişliği birebir aynı
+   kaldı (362.56px). Yani `next/font`'un getirdiği Newsreader alt kümesinde
+   OpenType rakam özellikleri bulunmuyor — kurallar sessizce yok sayılıyordu.
+
+   Çalışmayan bir kuralı, ne yaptığını anlatan bir yorumla birlikte bırakmak
+   kodu okuyanı yanıltır. Bu özellikler gerekirse yazı tipini Google Fonts
+   alt kümesi yerine tam sürümüyle barındırmak gerekir.
+*/
 
 h1 {
   font-size: clamp(2.6rem, 6.2vw, 4.6rem);
@@ -199,6 +251,59 @@ a {
 }
 
 @keyframes belir {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --- Kaydırmayla beliren içerik ------------------------------------------ */
+/*
+   Tamamı CSS: `animation-timeline: view()` animasyonu sayfanın kaydırma
+   konumuna bağlar, JavaScript'e hiç ihtiyaç duymaz.
+
+   Başlangıç durumu (`opacity: 0`) bilinçli olarak @supports içine alındı.
+   Dışarıda tanımlansaydı, bu özelliği desteklemeyen bir tarayıcıda animasyon
+   hiç çalışmaz ve içerik kalıcı olarak görünmez kalırdı — yani site boş
+   görünürdü. Bu haliyle desteklemeyen tarayıcı animasyonu değil, yalnızca
+   animasyonu kaçırır; içerik ilk andan itibaren okunur.
+*/
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .belir {
+      opacity: 0;
+      transform: translateY(34px);
+      filter: blur(6px);
+      animation: belirGir linear both;
+      animation-timeline: view();
+      animation-range: entry 4% cover 40%;
+    }
+
+    /* Kenar notu, ait olduğu metinden sonra ve soldan gelir — sonradan
+       kenara düşülmüş bir not hissi. Gecikme, aralığın geç başlamasıyla
+       sağlanıyor: içerik yerine oturmaya başladıktan sonra not beliriyor. */
+    .belirNot {
+      opacity: 0;
+      transform: translateX(-26px);
+      animation: belirYandan linear both;
+      animation-timeline: view();
+      animation-range: entry 18% cover 52%;
+    }
+  }
+}
+
+/* Bulanıklıktan netliğe geçiş, kâğıt metaforuyla uyumlu: yazı banyodan
+   çıkan bir baskı gibi yerine oturuyor. Salt kayma hareketinden çok daha
+   fark edilir, çünkü göz netlik değişimine kaymadan daha duyarlı. */
+@keyframes belirGir {
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@keyframes belirYandan {
   to {
     opacity: 1;
     transform: none;

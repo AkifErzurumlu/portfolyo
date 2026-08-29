@@ -16,10 +16,15 @@ export default function Marj({
   vurgulu?: boolean
   children: ReactNode
 }) {
+  // `belir` / `belirNot` kaydırma animasyonunu getirir. Marj her yerde
+  // kullanıldığı için sınıfları burada vermek, proje kartlarından detay
+  // sayfası bloklarına kadar hepsini tek noktadan tutarlı hale getiriyor.
   return (
     <div className={stil.marj}>
-      <div className={`${stil.not} ${vurgulu ? stil.notVurgulu : ''}`}>{not}</div>
-      <div className={stil.icerik}>{children}</div>
+      <div className={`belirNot ${stil.not} ${vurgulu ? stil.notVurgulu : ''}`}>
+        {not}
+      </div>
+      <div className={`belir ${stil.icerik}`}>{children}</div>
     </div>
   )
 }

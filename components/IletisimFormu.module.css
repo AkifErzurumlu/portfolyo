@@ -36,6 +36,9 @@
   font-family: inherit;
   font-size: 1rem;
   color: var(--murekkep);
+  /* Yanıp sönen imleç de mürekkep — varsayılan siyah, kâğıt paletinde
+     tek başına duran bir renk olurdu. */
+  caret-color: var(--vurgu);
   background: transparent;
   border: 0;
   /* --cizgi-koyu değil: o renk kâğıda karşı 1.89:1 veriyor ve WCAG 1.4.11'in
