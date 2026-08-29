@@ -257,13 +257,23 @@ a {
 */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
+    /*
+       Aralık `entry` üzerinden tanımlı, `cover` üzerinden değil — bu ayrım
+       mobilde belirleyici.
+
+       `cover`, elemanın viewport'u baştan sona geçişini ölçer. Uzun bir telefon
+       ekranında bu çok uzun bir yol demek: içerik ekranın ortasında apaçık
+       dururken hâlâ yarı bulanık kalıyordu ve efekt gibi değil, arıza gibi
+       görünüyordu. `entry 70%` ise "eleman %70 oranında ekrana girdiğinde
+       tamamlan" der; içerik okunur hale geldiği anda netleşiyor.
+    */
     .belir {
       opacity: 0;
       transform: translateY(34px);
       filter: blur(6px);
       animation: belirGir linear both;
       animation-timeline: view();
-      animation-range: entry 4% cover 40%;
+      animation-range: entry 0% entry 70%;
     }
 
     /* Kenar notu, ait olduğu metinden sonra ve soldan gelir — sonradan
@@ -274,7 +284,7 @@ a {
       transform: translateX(-26px);
       animation: belirYandan linear both;
       animation-timeline: view();
-      animation-range: entry 18% cover 52%;
+      animation-range: entry 20% entry 95%;
     }
   }
 }

@@ -21,17 +21,39 @@
   padding-top: 0;
 }
 
-.kart:hover,
+/*
+   Kâğıt kalkması yalnızca gerçekten imleç olan cihazlarda.
+
+   Medya sorgusu olmadan dokunmatik ekranda `:hover` parmağın değdiği kartta
+   TAKILI KALIYOR: masaüstünde imleç ayrılınca durum geri döner, telefonda
+   ayrılacak imleç yok. Sonuç, listede kalkık ve gölgeli kalmış tek bir kart
+   oluyordu — hareket değil, arıza gibi görünüyor.
+*/
+@media (hover: hover) and (pointer: fine) {
+  .kart:hover {
+    border-color: var(--cizgi-koyu);
+    transform: perspective(900px) rotateX(5deg) scale(1.015) translateY(-8px);
+    /* Tasarımda gölge yasağı var; bu bilinçli bir istisna. Süsleme değil,
+       derinliğin tek okunabilir işareti — gölge olmadan kalkma hareketi
+       düz bir kayma gibi görünüyor. İki katman: dar ve koyu olan kâğıdın
+       masaya değdiği yeri, geniş ve açık olan yükseldiği mesafeyi anlatıyor. */
+    box-shadow:
+      0 2px 4px -2px rgb(22 21 15 / 0.28),
+      0 18px 36px -18px rgb(22 21 15 / 0.45);
+  }
+}
+
+/* Klavye odağı her cihazda çalışmalı — dokunmatik ekranda da harici klavye
+   bağlanabilir. Kalkma yerine sadece çizgi vurgusu: odak göstergesinin
+   yerini kaydırması, takip etmeyi zorlaştırır. */
 .kart:focus-visible {
   border-color: var(--cizgi-koyu);
-  transform: perspective(900px) rotateX(5deg) scale(1.015) translateY(-8px);
-  /* Tasarımda gölge yasağı var; bu bilinçli bir istisna. Süsleme değil,
-     derinliğin tek okunabilir işareti — gölge olmadan kalkma hareketi
-     düz bir kayma gibi görünüyor. İki katman: dar ve koyu olan kâğıdın
-     masaya değdiği yeri, geniş ve açık olan yükseldiği mesafeyi anlatıyor. */
-  box-shadow:
-    0 2px 4px -2px rgb(22 21 15 / 0.28),
-    0 18px 36px -18px rgb(22 21 15 / 0.45);
+}
+
+/* Dokunmatikte geri bildirim: basılı tutulurken hafif sönme. Kalkma yerine
+   bu tercih edildi çünkü basma anı kısa ve dokunulan yer parmağın altında. */
+.kart:active {
+  opacity: 0.72;
 }
 
 @media (prefers-reduced-motion: reduce) {
