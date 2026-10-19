@@ -2,16 +2,17 @@
   --u: clamp(0.78px, 0.125313vw, 1.684px);
   position: relative;
   display: grid;
-  grid-template-columns: 49% 51%;
-  min-height: calc(451 * var(--u));
-  padding-top: 0;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(24px, 3vw, 40px);
+  padding-top: calc(25 * var(--u));
   padding-bottom: calc(25 * var(--u));
-  align-items: start;
+  align-items: center;
 }
 .copy {
   position: relative;
   z-index: 2;
-  padding-top: calc(60 * var(--u));
+  min-width: 0;
+  padding-block: calc(25 * var(--u));
 }
 .status {
   font-size: calc(11 * var(--u));
@@ -34,7 +35,7 @@
   letter-spacing: -0.065em;
   line-height: 0.94;
   color: #060d32;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 .copy h1 span {
   color: var(--color-blue);
@@ -46,7 +47,7 @@
   line-height: 1.2;
   color: var(--color-blue);
   margin-top: calc(12 * var(--u));
-  white-space: nowrap;
+  white-space: normal;
 }
 .description {
   font-size: calc(17 * var(--u));
@@ -73,6 +74,7 @@
 }
 .meta {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: calc(29 * var(--u));
   font-size: calc(10 * var(--u));
@@ -89,10 +91,9 @@
   height: calc(13 * var(--u));
 }
 .artwork {
-  position: absolute;
-  right: 0;
-  top: calc(13 * var(--u));
-  width: calc(433 * var(--u));
+  position: relative;
+  width: 100%;
+  min-width: 0;
   overflow: hidden;
 }
 @media (max-width: 600px) {
@@ -146,11 +147,4 @@
     width: 15px;
     height: 15px;
   }
-}
-.artwork {
-  mask-image: linear-gradient(90deg, transparent 0%, #000 8%);
-}
-
-.artwork {
-  mask-image: none;
 }

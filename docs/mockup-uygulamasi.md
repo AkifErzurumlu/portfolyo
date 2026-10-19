@@ -18,6 +18,8 @@ Türkçe sayfalar iki dil için de tek görsel düzenin kaynağıdır. Dil seçi
 
 Kontroller:
 
+Başlık alanları sabit yükseklik veya mutlak metin koordinatları kullanmaz. Proje başlığı, slogan, açıklama, bilgiler ve bağlantılar içerik akışında yer alır; görsel ayrı bir grid sütunundadır. Uzun çeviriler satır kırarak alanı büyütür; butonlar gerektiğinde alt satıra geçer. 1000 px ve altında proje görseli metnin altına iner. Ana sayfada da metin ve monogram ayrı sütunlardadır.
+
 ```sh
 npm run build
 npm run typecheck

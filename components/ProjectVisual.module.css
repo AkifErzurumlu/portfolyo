@@ -1582,6 +1582,10 @@
 .karnova .scene {
   aspect-ratio: 1.11;
 }
+.sifrekasam .scene {
+  aspect-ratio: auto;
+  padding-block: 9%;
+}
 .compact .scene {
   aspect-ratio: auto;
 }
