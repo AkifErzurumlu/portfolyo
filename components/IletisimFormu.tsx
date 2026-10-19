@@ -137,6 +137,7 @@ export default function IletisimFormu({ dil }: { dil: Dil }) {
       <div className={stil.eylem}>
         <button className={stil.dugme} type="submit" disabled={durum === 'gonderiliyor'}>
           {durum === 'gonderiliyor' ? t(UI.formGonderiliyor, dil) : t(UI.formGonder, dil)}
+          {durum !== 'gonderiliyor' && <span aria-hidden="true">→</span>}
         </button>
 
         <p className={stil.durum} role="status" aria-live="polite">

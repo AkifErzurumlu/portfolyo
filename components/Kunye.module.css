@@ -1,63 +1,69 @@
-/* Künye — dergi künyesi gibi. Sitenin nasıl yapıldığını açıkça yazar. */
-
 .kunye {
-  border-top: 1px solid var(--murekkep);
-  padding-block: clamp(2.5rem, 5vw, 3.5rem);
-  font-family: var(--font-mono), monospace;
-  font-size: 0.75rem;
-  line-height: 1.8;
-  color: var(--murekkep-2);
+  margin-top: 40px;
 }
-
-.ust {
+.ic {
+  border-top: 1px solid var(--color-line);
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  justify-content: space-between;
+}
+.ic p {
+  font-size: 11px;
+  color: var(--color-muted);
+}
+.sag {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.sosyal {
+  display: flex;
+  gap: 18px;
+}
+.sosyal a {
   display: grid;
-  grid-template-columns: var(--kenar-notu) minmax(0, 1fr);
-  gap: var(--oluk);
-  align-items: start;
+  place-items: center;
+  min-width: 28px;
+  min-height: 40px;
 }
-
-.etiket {
-  font-size: 0.688rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--murekkep-3);
-  text-align: right;
+.sosyal a:hover {
+  color: var(--color-blue);
 }
-
-.satirlar {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
-  gap: 1.35rem 2rem;
+.sag nav {
+  display: flex;
+  gap: 22px;
+  font-size: 11px;
+  font-weight: 650;
 }
-
-.alan dt {
-  font-size: 0.688rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--murekkep-3);
+.sag nav a:hover {
+  color: var(--color-blue);
 }
-
-.alan dd {
-  margin: 0;
-}
-
-.telif {
-  margin-top: 2.25rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--cizgi);
-  color: var(--murekkep-3);
-  font-size: 0.688rem;
-  letter-spacing: 0.06em;
-}
-
-@media (max-width: 860px) {
-  .ust {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1rem;
+@media (max-width: 1050px) {
+  .ic {
+    flex-wrap: wrap;
+    gap: 18px;
+    padding-block: 28px;
   }
-
-  .etiket {
-    text-align: left;
+  .ic p span {
+    display: none;
+  }
+  .sag nav {
+    display: none;
+  }
+}
+@media (max-width: 600px) {
+  .ic {
+    justify-content: space-between;
+  }
+  .ic > a {
+    width: 100%;
+  }
+  .ic p {
+    font-size: 10px;
+  }
+  .sosyal {
+    gap: 12px;
   }
 }

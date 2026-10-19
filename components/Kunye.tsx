@@ -1,72 +1,44 @@
-import { YAZI_TIPLERI } from '@/app/fonts'
-import { UI } from '@/content/ceviri'
-import { ILETISIM, PROFIL } from '@/content/profil'
-import { t, type Dil } from '@/lib/i18n'
+import { type Dil, anaSayfaYolu } from '@/lib/i18n'
+import { ILETISIM } from '@/content/profil'
+import Brand from './Brand'
+import Icon from './Icon'
 import stil from './Kunye.module.css'
-
-/** Build anında sabitlenir — statik çıktıda derleme tarihini gösterir. */
-const GUNCELLEME = new Date()
-
-const KAYNAK = 'https://github.com/AkifErzurumlu/portfolyo'
-
 export default function Kunye({ dil }: { dil: Dil }) {
-  const tarih = new Intl.DateTimeFormat(dil === 'tr' ? 'tr-TR' : 'en-GB', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    timeZone: 'Europe/Istanbul',
-  }).format(GUNCELLEME)
-
+  const home = anaSayfaYolu(dil)
   return (
-    <footer id="kunye" className={stil.kunye}>
-      <div className="kabuk">
-        <div className={stil.ust}>
-          <p className={stil.etiket}>{t(UI.kunye, dil)}</p>
-
-          <div>
-            <dl className={stil.satirlar}>
-              <div className={stil.alan}>
-                <dt>{t(UI.kunyeYapim, dil)}</dt>
-                <dd>Next.js 15 · TypeScript · CSS Modules</dd>
-              </div>
-              <div className={stil.alan}>
-                <dt>{t(UI.kunyeYaziTipleri, dil)}</dt>
-                <dd>{YAZI_TIPLERI}</dd>
-              </div>
-              <div className={stil.alan}>
-                <dt>{t(UI.kunyeGuncelleme, dil)}</dt>
-                <dd>{tarih}</dd>
-              </div>
-              <div className={stil.alan}>
-                <dt>{t(UI.kunyeKaynak, dil)}</dt>
-                <dd>
-                  <a className="baglanti" href={KAYNAK}>
-                    github.com/AkifErzurumlu/portfolyo
-                  </a>
-                </dd>
-              </div>
-              <div className={stil.alan}>
-                <dt className="marka">GitHub</dt>
-                <dd>
-                  <a className="baglanti" href={ILETISIM.github}>
-                    AkifErzurumlu
-                  </a>
-                </dd>
-              </div>
-              <div className={stil.alan}>
-                <dt className="marka">LinkedIn</dt>
-                <dd>
-                  <a className="baglanti" href={ILETISIM.linkedin}>
-                    emin-akif-erzurumlu
-                  </a>
-                </dd>
-              </div>
-            </dl>
-
-            <p className={stil.telif}>
-              © {GUNCELLEME.getFullYear()} {PROFIL.ad}
-            </p>
+    <footer className={stil.kunye}>
+      <div className={`kabuk ${stil.ic}`}>
+        <a href={home} aria-label="erzurumlu.dev">
+          <Brand small />
+        </a>
+        <p>
+          © 2026 Emin Akif Erzurumlu
+          <span>
+            {dil === 'tr'
+              ? '. Tüm hakları saklıdır.'
+              : '. All rights reserved.'}
+          </span>
+        </p>
+        <div className={stil.sag}>
+          <div className={stil.sosyal}>
+            <a href={ILETISIM.github} aria-label="GitHub">
+              <Icon name="github" />
+            </a>
+            <a href={ILETISIM.linkedin} aria-label="LinkedIn">
+              <Icon name="linkedin" />
+            </a>
           </div>
+          <nav aria-label={dil === 'tr' ? 'Alt menü' : 'Footer navigation'}>
+            <a href={home + '#calismalar'}>
+              {dil === 'tr' ? 'Çalışmalar' : 'Work'}
+            </a>
+            <a href={home + '#hakkimda'}>
+              {dil === 'tr' ? 'Hakkımda' : 'About'}
+            </a>
+            <a href={home + '#iletisim'}>
+              {dil === 'tr' ? 'İletişim' : 'Contact'}
+            </a>
+          </nav>
         </div>
       </div>
     </footer>

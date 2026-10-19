@@ -1,84 +1,62 @@
-/* Kâğıda doldurulan form estetiği: kutu, gölge ve yuvarlak köşe yok —
-   yalnızca alt çizgi. Odaklanınca çizgi vurgu rengine geçer. */
-
 .form {
+  background: #fff;
+  border-radius: 14px;
+  padding: 25px;
   display: grid;
-  gap: 1.4rem;
-  max-width: 62ch;
+  gap: 18px;
+  width: 100%;
+  color: var(--color-ink);
+  box-shadow: 0 8px 30px #10205c08;
+  position: relative;
 }
-
 .satir {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 1.4rem;
+  gap: 20px;
 }
-
 .alan {
   display: grid;
-  gap: 0.4rem;
+  gap: 8px;
   min-width: 0;
 }
-
 .etiket {
-  font-family: var(--font-mono), monospace;
-  font-size: 0.688rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--murekkep-3);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-ink);
 }
-
 .zorunlu {
-  color: var(--vurgu);
+  color: var(--color-blue);
 }
-
 .girdi {
-  font-family: inherit;
-  font-size: 1rem;
-  color: var(--murekkep);
-  /* Yanıp sönen imleç de mürekkep — varsayılan siyah, kâğıt paletinde
-     tek başına duran bir renk olurdu. */
-  caret-color: var(--vurgu);
-  background: transparent;
-  border: 0;
-  /* --cizgi-koyu değil: o renk kâğıda karşı 1.89:1 veriyor ve WCAG 1.4.11'in
-     arayüz bileşenleri için istediği 3:1 eşiğinin altında kalıyor. Bu çizgi
-     girdinin nerede olduğunu gösteren tek işaret, görünmek zorunda. */
-  border-bottom: 1px solid var(--murekkep-3);
-  border-radius: 0;
-  padding: 0.55rem 0;
-  transition: border-color var(--gecis);
   width: 100%;
+  border: 1px solid #d7deed;
+  border-radius: 7px;
+  color: var(--color-ink);
+  background: #f8faff;
+  padding: 11px 12px;
+  font-size: 12px;
+  caret-color: var(--color-blue);
+  min-height: 43px;
 }
-
 .girdi::placeholder {
-  color: var(--murekkep-3);
+  color: #71809b;
   opacity: 1;
 }
-
 .girdi:hover {
-  border-color: var(--murekkep);
+  border-color: #a6b6d9;
 }
-
 .girdi:focus {
-  outline: none;
-  border-color: var(--vurgu);
-  border-bottom-width: 2px;
-  padding-bottom: calc(0.55rem - 1px);
+  outline: 2px solid var(--color-blue);
+  outline-offset: 2px;
 }
-
 .girdi:disabled {
-  opacity: 0.55;
+  opacity: 0.6;
 }
-
 textarea.girdi {
-  min-height: 7.5rem;
+  min-height: 110px;
   resize: vertical;
-  line-height: 1.65;
+  line-height: 1.6;
 }
-
-/* Bal küpü: gerçek kullanıcılar göremez, botlar doldurur. `display: none`
-   yerine ekran dışına alındı — bazı botlar gizli alanları atlar. */
 .balKupu {
   position: absolute;
   left: -9999px;
@@ -86,62 +64,60 @@ textarea.girdi {
   height: 1px;
   overflow: hidden;
 }
-
 .eylem {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem 1.5rem;
-  margin-top: 0.35rem;
+  display: grid;
+  gap: 9px;
 }
-
 .dugme {
-  font-family: var(--font-mono), monospace;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--murekkep);
-  background: transparent;
-  border: 1px solid var(--murekkep);
-  border-radius: 0;
-  padding: 0.7rem 1.5rem;
-  cursor: pointer;
-  transition: background var(--gecis), color var(--gecis), opacity var(--gecis);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-blue);
+  color: #fff;
+  min-height: 45px;
+  padding: 11px 22px;
+  border: 0;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
 }
-
-.dugme:hover:not(:disabled),
-.dugme:focus-visible:not(:disabled) {
-  background: var(--murekkep);
-  color: var(--kagit);
+.dugme:hover:not(:disabled) {
+  background: #153bdf;
 }
-
 .dugme:disabled {
   cursor: progress;
-  opacity: 0.5;
+  opacity: 0.6;
 }
-
 .durum {
-  font-family: var(--font-mono), monospace;
-  font-size: 0.75rem;
-  line-height: 1.6;
-  margin: 0;
+  font-size: 11px;
+  line-height: 1.5;
+  min-height: 0;
 }
-
+.durum:empty {
+  display: none;
+}
 .durumBasarili {
-  color: var(--vurgu);
+  color: #087564;
 }
-
 .durumHata {
-  color: var(--vurgu);
+  color: #b12542;
 }
-
 .durumHata a {
   text-decoration: underline;
-  text-underline-offset: 3px;
 }
-
-@media (max-width: 620px) {
+@media (max-width: 500px) {
+  .form {
+    padding: 20px;
+  }
   .satir {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .girdi {
+    font-size: 16px;
+  }
+  .etiket {
+    font-size: 12px;
   }
 }

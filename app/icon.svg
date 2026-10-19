@@ -1,7 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-  <rect width="32" height="32" rx="4" fill="#16150F"/>
-  <text x="16" y="21.5" text-anchor="middle"
-        font-family="Georgia, 'Times New Roman', 'Newsreader', serif"
-        font-size="17" font-weight="400" letter-spacing="-0.6" fill="#F4F1EA">EA</text>
-  <rect x="8" y="25" width="16" height="1.5" fill="#C4553A"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#f4f6fa"/><g transform="translate(4 12) scale(.95)" fill="#244bff"><path d="M8 5h25l-5 7H13l-3 5h15l-5 7H6L0 34h25l5-8H17l3-5h13L43 4l15 30H47L42 23l-7 11H25L44 2h-9l-2 3H8Z"/></g></svg>

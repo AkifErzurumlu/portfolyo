@@ -7,9 +7,10 @@ portfolyo sitesi. Türkçe ve İngilizce, saf statik.
 
 Next.js 15 (App Router) · TypeScript · CSS Modules · `output: 'export'`
 
-Tailwind yok: site editoryal bir tipografi üzerine kurulu ve bu tür bir tasarımı
-utility sınıflarıyla yazmak okunmaz hale getiriyor. Çalışma zamanı bağımlılığı
-yok, çıktı tamamen statik dosya.
+Onaylanan portfolyo mockup’larını izleyen açık gri, kobalt mavisi ve lacivert
+tasarım; Manrope tipografisi, EA monogramı ve HTML/CSS ürün önizlemeleri kullanır.
+Çıktı tamamen statiktir. Proje metinleri, bağlantılar ve önizlemeler iki dillidir.
+Karnova önizlemesindeki YKS/LGS düğmeleri dersleri ve içerik önerilerini değiştirir.
 
 ## Çalıştırma
 
@@ -27,7 +28,7 @@ app/
   (tr)/            Türkçe kök layout ve rotalar        →  /  ·  /projeler/[slug]
   (en)/            İngilizce kök layout ve rotalar     →  /en · /en/projects/[slug]
   globals.css      Tasarım token'ları, açık + koyu tema
-  fonts.ts         next/font ile self-hosted yazı tipleri
+  fonts.ts         next/font ile self-hosted Manrope
   sitemap.ts       İki dili hreflang ile eşleyen site haritası
 components/        Sunum bileşenleri, her biri kendi .module.css dosyasıyla
 content/           İçeriğin tek kaynağı — projeler, profil, arayüz metinleri
