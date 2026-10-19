@@ -1,3 +1,5 @@
+import { ERZ_PATH, ERZ_VIEW_BOX } from '@/lib/brand'
+
 export default function Brand({ small = false }: { small?: boolean }) {
   return (
     <span
@@ -12,19 +14,19 @@ export default function Brand({ small = false }: { small?: boolean }) {
       }}
     >
       <svg
-        width={small ? 39 : 48}
-        height={small ? 28 : 34}
-        viewBox="0 0 44 28"
+        width={small ? 57 : 68}
+        height={small ? 21 : 25}
+        viewBox={ERZ_VIEW_BOX}
         fill="currentColor"
         style={{
           color: 'var(--color-blue)',
           flexShrink: 0,
-          width: 'clamp(36px, 4.6vw, 62px)',
+          width: 'clamp(42px, 5.5vw, 74px)',
           height: 'auto',
         }}
         aria-hidden="true"
       >
-        <path d="M11 2h16l-4 6H7zM6 11h16l-4 6h-8l-3 5h12l-4 6H0zM30 2l14 26h-8l-8-15-9 15h-8z" />
+        <path d={ERZ_PATH} />
       </svg>
       <span>erzurumlu.dev</span>
     </span>

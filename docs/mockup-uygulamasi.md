@@ -1,5 +1,7 @@
 # Ortak tasarım ve canlı ürün sahneleri
 
+Küçük marka amblemi, onaylanan **01 / Tek çizgi** ERZ ligatürüdür. Ortak `Brand` bileşeni tüm sayfaların üst ve alt menülerinde aynı vektörü kullanır. Favicon ve 404 sayfası da bu işareti taşır. Vektör geometrisi `lib/brand.ts` içinde tanımlıdır; bağımsız SVG dosyası `public/brand/erz.svg` konumundadır. Büyük animasyonlu EA monogramı kullanıcının isteğiyle korunmuştur.
+
 Türkçe sayfalar iki dil için de tek görsel düzenin kaynağıdır. Dil seçimi aynı bileşen ağacında yalnızca metinleri, bağlantıların dil yolunu ve CV dilini değiştirir. Ayrı İngilizce sayfa kompozisyonu bulunmaz.
 
 Ürün illüstrasyonları ekran görüntüsü içermez. `ProjectVisual`, `ReferenceArt` ve `EAArtwork` gerçek HTML, CSS ve SVG üretir. Teknoloji marka logoları yerel SVG dosyalarıdır. Eski mockup dosyaları referans olarak korunur, sayfalarda kullanılmaz.
