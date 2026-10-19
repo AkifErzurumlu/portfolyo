@@ -1,4 +1,11 @@
 import type { CSSProperties } from 'react'
+// Filled brand marks stay crisp at the small sizes used in the footer.
+const brandPaths: Record<string, string> = {
+  github:
+    'M12 .297C5.37.297 0 5.67 0 12.297c0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.043-1.61-4.043-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.838 1.237 1.838 1.237 1.07 1.835 2.807 1.305 3.492.998.108-.776.418-1.305.762-1.605-2.665-.3-5.467-1.334-5.467-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12',
+  linkedin:
+    'M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.049c.476-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.119 20.452H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z',
+}
 const paths: Record<string, string[]> = {
   'arrow-right': ['M4 12h16', 'm13 5 7 7-7 7'],
   'arrow-left': ['M20 12H4', 'm11 5-7 7 7 7'],
@@ -75,11 +82,6 @@ const paths: Record<string, string[]> = {
     'M12 3c-5 5-5 13 0 18 5-5 5-13 0-18Z',
   ],
   user: ['M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z', 'M4 21v-3c0-7 16-7 16 0v3'],
-  github: [
-    'M9 19c-4 1-4-2-6-2',
-    'M9 22v-4c-4-1-6-3-6-7 0-2 1-4 2-5 0-2 0-3 1-4 3 0 4 2 6 2s3-2 6-2c1 1 1 2 1 4 1 1 2 3 2 5 0 4-2 6-6 7v4',
-  ],
-  linkedin: ['M4 9v12', 'M4 3v1', 'M10 21V9h4v2c3-4 7-2 7 2v8', 'M10 9v12'],
 }
 export default function Icon({
   name,
@@ -92,13 +94,14 @@ export default function Icon({
   className?: string
   style?: CSSProperties
 }) {
+  const brandPath = brandPaths[name]
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
+      fill={brandPath ? 'currentColor' : 'none'}
+      stroke={brandPath ? 'none' : 'currentColor'}
       strokeWidth="1.7"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -106,9 +109,11 @@ export default function Icon({
       style={style}
       aria-hidden="true"
     >
-      {(paths[name] ?? paths.code)!.map((d, i) => (
-        <path key={i} d={d} />
-      ))}
+      {brandPath ? (
+        <path d={brandPath} />
+      ) : (
+        (paths[name] ?? paths.code)!.map((d, i) => <path key={i} d={d} />)
+      )}
     </svg>
   )
 }
