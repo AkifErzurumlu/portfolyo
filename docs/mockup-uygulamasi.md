@@ -1,5 +1,7 @@
 # Ortak tasarım ve canlı ürün sahneleri
 
+Arama motorları ve tarayıcılar için favicon varyantları aynı ERZ vektöründen üretilmiştir: `app/icon.svg`, 96×96 PNG `app/icon.png`, 16–256 px ICO `app/favicon.ico` ve 180×180 Apple PNG `app/apple-icon.png`. Next.js dosya tabanlı metadata bu simgeleri her iki dilde de sunar. Google sonuçlarındaki simge ancak ana sayfa ve favicon yeniden tarandıktan sonra güncellenir.
+
 Küçük marka amblemi, onaylanan **01 / Tek çizgi** ERZ ligatürüdür. Ortak `Brand` bileşeni tüm sayfaların üst ve alt menülerinde aynı vektörü kullanır. Favicon ve 404 sayfası da bu işareti taşır. Vektör geometrisi `lib/brand.ts` içinde tanımlıdır; bağımsız SVG dosyası `public/brand/erz.svg` konumundadır. Büyük animasyonlu EA monogramı kullanıcının isteğiyle korunmuştur.
 
 Türkçe sayfalar iki dil için de tek görsel düzenin kaynağıdır. Dil seçimi aynı bileşen ağacında yalnızca metinleri, bağlantıların dil yolunu ve CV dilini değiştirir. Ayrı İngilizce sayfa kompozisyonu bulunmaz.
