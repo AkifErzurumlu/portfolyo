@@ -42,6 +42,37 @@ const recommended = {
   ],
 } as const
 
+function useExamPreference() {
+  const [exam, setExam] = useState<Exam>('YKS')
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem('portfolio-karnova-exam')
+      if (saved === 'YKS' || saved === 'LGS') setExam(saved)
+    } catch { /* The illustration also works when browser storage is disabled. */ }
+  }, [])
+  const chooseExam = (value: Exam) => {
+    setExam(value)
+    try { sessionStorage.setItem('portfolio-karnova-exam', value) } catch { /* Optional preference only. */ }
+  }
+  return [exam, chooseExam] as const
+}
+
+function ExamToggle({ exam, chooseExam, dil }: {
+  exam: Exam
+  chooseExam: (value: Exam) => void
+  dil: Dil
+}) {
+  return (
+    <div className={s.examToggle} role="group"
+      aria-label={dil === 'tr' ? 'Sınav seçimi' : 'Choose exam'}>
+      {(['YKS', 'LGS'] as const).map((value) => (
+        <button key={value} type="button" aria-pressed={exam === value}
+          onClick={() => chooseExam(value)}>{value}</button>
+      ))}
+    </div>
+  )
+}
+
 function LockMark() {
   return (
     <svg viewBox="0 0 32 38" width="28" height="34" aria-hidden="true">
@@ -146,6 +177,7 @@ function Trend({ dil }: { dil: Dil }) {
 
 function KarnovaJourney({ dil }: { dil: Dil }) {
   const tr = dil === 'tr'
+  const [exam, chooseExam] = useExamPreference()
   return (
     <div className={s.screen}>
       <Sidebar
@@ -173,7 +205,7 @@ function KarnovaJourney({ dil }: { dil: Dil }) {
       <div className={s.dashboard}>
         <div className={s.topline}>
           <h3>{tr ? 'Öğrenme yolculuğun' : 'Your learning journey'}</h3>
-          <span>◉ ◌</span>
+          <ExamToggle exam={exam} chooseExam={chooseExam} dil={dil} />
         </div>
         <p className={s.journeyHint}>
           {tr
@@ -226,37 +258,25 @@ function KarnovaJourney({ dil }: { dil: Dil }) {
                 <span>
                   <AnimatedNumber value={n} />{' '}
                   {tr
-                    ? ['ders tamamlandı', 'saat çalışıldı', 'yeni rozet'][i]
-                    : ['lessons completed', 'hours studied', 'new badges'][i]}
+                    ? ['kazanım tamamlandı', 'saat çalışıldı', 'yeni rozet'][i]
+                    : ['objectives completed', 'hours studied', 'new badges'][i]}
                 </span>
               </div>
             ))}
           </div>
         </div>
         <h4 className={s.journeyTitle}>
-          {tr ? 'Önerilen sonraki dersler:' : 'Recommended next:'}
+          {tr ? 'Önerilen sonraki kazanımlar:' : 'Recommended learning objectives:'}
         </h4>
         <div className={s.journeyLower}>
           <div>
-            {(tr
-              ? [
-                  'Veri Yapıları ve Algoritmalar',
-                  'Python ile Yapay Zekâ',
-                  'Web Geliştirme Temelleri',
-                ]
-              : [
-                  'Data Structures and Algorithms',
-                  'Python and AI',
-                  'Web Development Basics',
-                ]
-            ).map((text, i) => (
-              <div key={i} className={s.journeyLesson}>
+            {recommended[exam].map(([trName, enName, trCourse, enCourse], i) => (
+              <div key={trName} className={s.journeyLesson}>
                 <Glyph>{['▣', '◧', '▤'][i]}</Glyph>
                 <div>
-                  <strong>{text}</strong>
+                  <strong>{tr ? trName : enName}</strong>
                   <small>
-                    {[12, 8, 10][i]}{' '}
-                    {tr ? 'video · Başlangıç' : 'videos · Beginner'}
+                    {tr ? trCourse : enCourse} · {exam}
                   </small>
                 </div>
               </div>
@@ -281,17 +301,7 @@ function PasswordDots() {
 }
 
 function Karnova({ dil }: { dil: Dil }) {
-  const [exam, setExam] = useState<Exam>('YKS')
-  useEffect(() => {
-    try {
-      const saved = sessionStorage.getItem('portfolio-karnova-exam')
-      if (saved === 'YKS' || saved === 'LGS') setExam(saved)
-    } catch { /* The illustration also works when browser storage is disabled. */ }
-  }, [])
-  const chooseExam = (value: Exam) => {
-    setExam(value)
-    try { sessionStorage.setItem('portfolio-karnova-exam', value) } catch { /* Optional preference only. */ }
-  }
+  const [exam, chooseExam] = useExamPreference()
   const tr = dil === 'tr'
   return (
     <div className={s.screen}>
@@ -331,22 +341,7 @@ function Karnova({ dil }: { dil: Dil }) {
           <section className={s.panel}>
             <div className={s.panelHeading}>
               <h4>{tr ? 'Kazanım ilerlemesi' : 'Course progress'}</h4>
-              <div
-                className={s.examToggle}
-                role="group"
-                aria-label={tr ? 'Sınav seçimi' : 'Choose exam'}
-              >
-                {(['YKS', 'LGS'] as const).map((x) => (
-                  <button
-                    key={x}
-                    type="button"
-                    aria-pressed={exam === x}
-                    onClick={() => chooseExam(x)}
-                  >
-                    {x}
-                  </button>
-                ))}
-              </div>
+              <ExamToggle exam={exam} chooseExam={chooseExam} dil={dil} />
             </div>
             <div className={s.progressList} aria-live="off">
               {courses[exam].map(([trName, enName, percent], i) => (
