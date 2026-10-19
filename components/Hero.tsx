@@ -2,6 +2,7 @@ import { type Dil, t } from '@/lib/i18n'
 import { CV, PROFIL } from '@/content/profil'
 import Icon from './Icon'
 import stil from './Hero.module.css'
+import ReferenceArt from './ReferenceArt'
 export default function Hero({ dil }: { dil: Dil }) {
   return (
     <section className={`kabuk ${stil.hero}`}>
@@ -65,13 +66,7 @@ export default function Hero({ dil }: { dil: Dil }) {
             : 'Cobalt blue EA monogram with glass architectural layers'
         }
       >
-        <img
-          src="/images/ea-artwork-reference.png"
-          width="971"
-          height="1619"
-          alt=""
-          fetchPriority="high"
-        />
+        <ReferenceArt page="anasayfa" dil={dil} region="hero" />
       </div>
     </section>
   )

@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { CSSProperties } from 'react'
 import type { Dil } from '@/lib/i18n'
 import s from './ProjectVisual.module.css'
+import MotionScope, { AnimatedNumber, useSceneProgress } from './MotionScope'
 
 type Props = { slug: string; dil: Dil; compact?: boolean }
 type Exam = 'YKS' | 'LGS'
@@ -87,6 +88,17 @@ function Sidebar({ name, items }: { name: string; items: string[] }) {
 }
 
 function Trend({ dil }: { dil: Dil }) {
+  const phase = useSceneProgress()
+  const points = [
+    [10, 65],
+    [90, 58],
+    [170, 42],
+    [250, 25],
+    [330, 48],
+    [410, 33],
+    [490, 43],
+  ].map(([x, y]) => [x!, 70 - (70 - y!) * phase])
+  const line = points.map(([x, y], i) => `${i ? 'L' : 'M'}${x} ${y}`).join('')
   return (
     <div className={s.trend}>
       <div className={s.panelHeading}>
@@ -109,26 +121,15 @@ function Trend({ dil }: { dil: Dil }) {
           stroke="#e8edfb"
           fill="none"
         />
+        <path d={`${line}V70H10Z`} fill="#244bff" opacity=".07" />
         <path
-          d="M10 65L90 58L170 42L250 25L330 48L410 33L490 43V70H10Z"
-          fill="#244bff"
-          opacity=".07"
-        />
-        <path
-          d="M10 65L90 58L170 42L250 25L330 48L410 33L490 43"
+          pathLength={1}
+          d={line}
           fill="none"
           stroke="#3155ff"
           strokeWidth="2.5"
         />
-        {[
-          [10, 65],
-          [90, 58],
-          [170, 42],
-          [250, 25],
-          [330, 48],
-          [410, 33],
-          [490, 43],
-        ].map(([x, y]) => (
+        {points.map(([x, y]) => (
           <circle key={x} cx={x} cy={y} r="3.5" fill="#3155ff" />
         ))}
       </svg>
@@ -143,8 +144,154 @@ function Trend({ dil }: { dil: Dil }) {
   )
 }
 
+function KarnovaJourney({ dil }: { dil: Dil }) {
+  const tr = dil === 'tr'
+  return (
+    <div className={s.screen}>
+      <Sidebar
+        name="Karnova"
+        items={
+          tr
+            ? [
+                'Ana sayfa',
+                'Derslerim',
+                'Planım',
+                'Yapay zekâ asistanı',
+                'İlerleme',
+                'Ayarlar',
+              ]
+            : [
+                'Home',
+                'My courses',
+                'Study plan',
+                'AI study assistant',
+                'Progress',
+                'Settings',
+              ]
+        }
+      />
+      <div className={s.dashboard}>
+        <div className={s.topline}>
+          <h3>{tr ? 'Öğrenme yolculuğun' : 'Your learning journey'}</h3>
+          <span>◉ ◌</span>
+        </div>
+        <p className={s.journeyHint}>
+          {tr
+            ? 'Hedeflerini adım adım, daha net bir şekilde gör.'
+            : 'Set your goals and take the next step with clarity.'}
+        </p>
+        <div className={s.searchHint}>
+          ⌕{' '}
+          {tr
+            ? 'Ders, konu veya beceri ara…'
+            : 'Search courses, topics or skills…'}
+        </div>
+        <div className={s.journeyStats}>
+          <MotionScope className={s.journeyCard}>
+            <div className={s.journeyRing}>
+              <svg viewBox="0 0 90 90" aria-hidden="true">
+                <circle
+                  cx="45"
+                  cy="45"
+                  r="36"
+                  fill="none"
+                  stroke="#e8eeff"
+                  strokeWidth="7"
+                />
+                <circle
+                  cx="45"
+                  cy="45"
+                  r="36"
+                  fill="none"
+                  stroke="#3155ff"
+                  strokeWidth="7"
+                  strokeLinecap="round"
+                  pathLength="1"
+                />
+              </svg>
+              <strong>
+                <AnimatedNumber value={72} suffix="%" />
+              </strong>
+            </div>
+            <div>
+              <strong>{tr ? 'Genel ilerleme' : 'Overall progress'}</strong>
+              <small>{tr ? 'Bu hafta' : 'This week'}</small>
+            </div>
+          </MotionScope>
+          <div className={s.journeyWeek}>
+            <strong>{tr ? 'Bu hafta' : 'This week'}</strong>
+            {[3, 12, 2].map((n, i) => (
+              <div key={i}>
+                <i>{['✓', '◷', '?'][i]}</i>
+                <span>
+                  <AnimatedNumber value={n} />{' '}
+                  {tr
+                    ? ['ders tamamlandı', 'saat çalışıldı', 'yeni rozet'][i]
+                    : ['lessons completed', 'hours studied', 'new badges'][i]}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <h4 className={s.journeyTitle}>
+          {tr ? 'Önerilen sonraki dersler:' : 'Recommended next:'}
+        </h4>
+        <div className={s.journeyLower}>
+          <div>
+            {(tr
+              ? [
+                  'Veri Yapıları ve Algoritmalar',
+                  'Python ile Yapay Zekâ',
+                  'Web Geliştirme Temelleri',
+                ]
+              : [
+                  'Data Structures and Algorithms',
+                  'Python and AI',
+                  'Web Development Basics',
+                ]
+            ).map((text, i) => (
+              <div key={i} className={s.journeyLesson}>
+                <Glyph>{['▣', '◧', '▤'][i]}</Glyph>
+                <div>
+                  <strong>{text}</strong>
+                  <small>
+                    {[12, 8, 10][i]}{' '}
+                    {tr ? 'video · Başlangıç' : 'videos · Beginner'}
+                  </small>
+                </div>
+              </div>
+            ))}
+          </div>
+          <MotionScope className={s.journeyStudy}>
+            <strong>{tr ? 'Çalışma isteğin' : 'Study time'}</strong>
+            <Trend dil={dil} />
+          </MotionScope>
+        </div>
+      </div>
+    </div>
+  )
+}
+function PasswordDots() {
+  const phase = useSceneProgress()
+  return (
+    <strong aria-hidden="true">
+      {'● '.repeat(Math.round(8 * phase)).trim() || ' '}
+    </strong>
+  )
+}
+
 function Karnova({ dil }: { dil: Dil }) {
   const [exam, setExam] = useState<Exam>('YKS')
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem('portfolio-karnova-exam')
+      if (saved === 'YKS' || saved === 'LGS') setExam(saved)
+    } catch { /* The illustration also works when browser storage is disabled. */ }
+  }, [])
+  const chooseExam = (value: Exam) => {
+    setExam(value)
+    try { sessionStorage.setItem('portfolio-karnova-exam', value) } catch { /* Optional preference only. */ }
+  }
   const tr = dil === 'tr'
   return (
     <div className={s.screen}>
@@ -180,7 +327,7 @@ function Karnova({ dil }: { dil: Dil }) {
           <strong>{tr ? 'Kazanım analizi' : 'Learning outcomes'}</strong>
           <span>{tr ? 'İçerik önerileri' : 'Recommendations'}</span>
         </div>
-        <div className={s.learningGrid}>
+        <MotionScope resetKey={exam} className={s.learningGrid}>
           <section className={s.panel}>
             <div className={s.panelHeading}>
               <h4>{tr ? 'Kazanım ilerlemesi' : 'Course progress'}</h4>
@@ -194,14 +341,14 @@ function Karnova({ dil }: { dil: Dil }) {
                     key={x}
                     type="button"
                     aria-pressed={exam === x}
-                    onClick={() => setExam(x)}
+                    onClick={() => chooseExam(x)}
                   >
                     {x}
                   </button>
                 ))}
               </div>
             </div>
-            <div className={s.progressList} aria-live="polite">
+            <div className={s.progressList} aria-live="off">
               {courses[exam].map(([trName, enName, percent], i) => (
                 <div className={s.course} key={trName}>
                   <span
@@ -240,7 +387,9 @@ function Karnova({ dil }: { dil: Dil }) {
                       />
                     </div>
                   </div>
-                  <b>{percent}%</b>
+                  <b>
+                    <AnimatedNumber value={percent} suffix="%" dil={dil} />
+                  </b>
                 </div>
               ))}
             </div>
@@ -273,14 +422,14 @@ function Karnova({ dil }: { dil: Dil }) {
               </div>
             ))}
           </section>
-        </div>
+        </MotionScope>
         <Trend dil={dil} />
       </div>
     </div>
   )
 }
 
-function Scheduler({ dil }: { dil: Dil }) {
+function Scheduler({ dil, compact = false }: { dil: Dil; compact?: boolean }) {
   const tr = dil === 'tr'
   const events = [
     ['Veritabanları', 'Databases', 1, 1, 2, 'blue'],
@@ -316,7 +465,7 @@ function Scheduler({ dil }: { dil: Dil }) {
       />
       <div className={s.dashboard}>
         <div className={s.topline}>
-          <strong>12 – 18 {tr ? 'Mayıs' : 'May'} 2025</strong>
+          <strong>{compact ? 'SmartScheduler' : <>12 – 18 {tr ? 'Mayıs' : 'May'} 2025</>}</strong>
           <span className={s.student}>
             {tr ? 'Hafta görünümü' : 'Week view'}
           </span>
@@ -454,6 +603,7 @@ function Seismic({ dil }: { dil: Dil }) {
         </span>
         <svg viewBox="0 0 720 130" aria-hidden="true">
           <polyline
+            pathLength={1}
             points={wave}
             fill="none"
             stroke="#3155ff"
@@ -488,17 +638,23 @@ function Finance({ dil }: { dil: Dil }) {
         <div>
           <section className={s.panel}>
             <h4>{tr ? 'Toplam bakiye' : 'Total balance'}</h4>
-            <p className={s.balance}>₺12.480</p>
+            <p className={s.balance}>
+              <AnimatedNumber value={12480} prefix="₺" dil={dil} />
+            </p>
             <div className={s.moneyCards}>
               <div>
                 <Glyph>↑</Glyph>
                 <span>{tr ? 'Gelir' : 'Income'}</span>
-                <strong>₺28.500</strong>
+                <strong>
+                  <AnimatedNumber value={28500} prefix="₺" dil={dil} />
+                </strong>
               </div>
               <div>
                 <Glyph>↓</Glyph>
                 <span>{tr ? 'Gider' : 'Expenses'}</span>
-                <strong>₺16.020</strong>
+                <strong>
+                  <AnimatedNumber value={16020} prefix="₺" dil={dil} />
+                </strong>
               </div>
             </div>
           </section>
@@ -510,7 +666,9 @@ function Finance({ dil }: { dil: Dil }) {
             </div>
             <div className={s.goal}>
               <span>₺8.000 / ₺15.000</span>
-              <b>53%</b>
+              <b>
+                <AnimatedNumber value={53} suffix="%" dil={dil} />
+              </b>
             </div>
           </section>
         </div>
@@ -528,7 +686,9 @@ function Finance({ dil }: { dil: Dil }) {
                 }
               >
                 <div>
-                  <strong>32%</strong>
+                  <strong>
+                    <AnimatedNumber value={32} suffix="%" dil={dil} />
+                  </strong>
                   <span>{tr ? 'Konut' : 'Housing'}</span>
                 </div>
               </div>
@@ -678,7 +838,7 @@ function Vault({ dil }: { dil: Dil }) {
           </p>
           <div className={s.password}>
             <span>{tr ? 'Ana parola' : 'Master password'}</span>
-            <strong>● ● ● ● ● ● ● ●</strong>
+            <PasswordDots />
           </div>
           <span className={s.unlockArrow} aria-hidden="true">
             →
@@ -742,9 +902,13 @@ function Vault({ dil }: { dil: Dil }) {
 export default function ProjectVisual({ slug, dil, compact = false }: Props) {
   const content =
     slug === 'karnova' ? (
-      <Karnova dil={dil} />
+      compact ? (
+        <KarnovaJourney dil={dil} />
+      ) : (
+        <Karnova dil={dil} />
+      )
     ) : slug === 'smartscheduler' ? (
-      <Scheduler dil={dil} />
+      <Scheduler dil={dil} compact={compact} />
     ) : slug === 'sismik-analiz' ? (
       <Seismic dil={dil} />
     ) : slug === 'fintrack' ? (
@@ -758,7 +922,7 @@ export default function ProjectVisual({ slug, dil, compact = false }: Props) {
     <figure
       className={`${s.visual} ${s[slug.replaceAll('-', '')]} ${compact ? s.compact : ''}`}
     >
-      <div className={s.scene}>{content}</div>
+      <MotionScope className={s.scene}>{content}</MotionScope>
       <figcaption>
         {dil === 'tr'
           ? 'Temsili arayüz · Örnek veriler'

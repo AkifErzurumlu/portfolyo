@@ -1444,3 +1444,331 @@
     transition: none;
   }
 }
+/* Product illustrations are live HTML/SVG; the shared phase comes from viewport entry. */
+.scene {
+  isolation: isolate;
+  perspective: 1000px;
+  min-height: 0;
+  aspect-ratio: 1.08;
+  padding: 5%;
+}
+.screen {
+  transform: rotateY(-7deg) rotateX(3deg);
+  transform-origin: center;
+}
+.scene:before,
+.scene:after {
+  animation: glassFloat 7s ease-in-out infinite;
+  animation-play-state: paused;
+}
+.scene[data-ready='true']:before,
+.scene[data-ready='true']:after {
+  animation-play-state: running;
+}
+.scene:after {
+  animation-delay: -3s;
+}
+.scene .progressTrack i {
+  transform: scaleX(var(--phase));
+  transform-origin: left;
+  transition: width 700ms ease;
+}
+.scene .trend svg path[stroke='#3155ff'],
+.scene .wave polyline {
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--phase));
+}
+.scene .scatter circle {
+  opacity: calc(var(--phase) * 0.65);
+  transform: translateY(calc((1 - var(--phase)) * 12px));
+}
+.scene .event,
+.scene .constraint,
+.scene .book,
+.scene .vaultAccount,
+.scene .transaction {
+  opacity: var(--phase);
+  transform: translateY(calc((1 - var(--phase)) * 16px));
+}
+.scene .event:nth-child(2n) {
+  transform: translateY(calc((1 - var(--phase)) * 28px));
+}
+.scene .donut {
+  background: #e2e9fb;
+}
+.scene .donut:after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    #3155ff 0 32%,
+    #3bbfaa 32% 54%,
+    #ffb449 54% 68%,
+    #ff8d78 68% 79%,
+    #a485f4 79% 88%,
+    #bec7ee 88%
+  );
+  mask: conic-gradient(#000 calc(var(--phase) * 1turn), transparent 0);
+  z-index: 0;
+}
+.scene .donut:before {
+  z-index: 1;
+}
+.scene .donut > div {
+  z-index: 2;
+}
+.visual figcaption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.compact .scene {
+  height: 100%;
+  min-height: 0;
+  aspect-ratio: auto;
+}
+.compact .screen {
+  font-size: clamp(7px, 1.55cqw, 11px);
+}
+.scene .phone {
+  transform: translateY(calc((1 - var(--phase)) * 45px)) rotate(-5deg);
+}
+.scene .phone + .phone {
+  transform: translateY(calc((1 - var(--phase)) * 75px)) rotate(5deg);
+}
+@keyframes glassFloat {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -9px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene:before,
+  .scene:after {
+    animation: none !important;
+  }
+  .scene .progressTrack i {
+    transition: none;
+  }
+}
+.scene .wave polyline {
+  transform: scaleY(var(--phase));
+  transform-origin: center;
+}
+.scene .trend circle {
+  opacity: var(--phase);
+}
+.scene .course .progressTrack i {
+  will-change: transform;
+}
+.smartscheduler .scene {
+  aspect-ratio: 1.92;
+}
+.sismikanaliz .scene {
+  aspect-ratio: 1.33;
+}
+.fintrack .scene {
+  aspect-ratio: 0.95;
+}
+.webkutuphane .scene {
+  aspect-ratio: 1.12;
+}
+.karnova .scene {
+  aspect-ratio: 1.11;
+}
+.compact .scene {
+  aspect-ratio: auto;
+}
+@media (max-width: 640px) {
+  .smartscheduler .scene {
+    aspect-ratio: 1.4;
+  }
+  .compact .scene {
+    aspect-ratio: auto;
+  }
+}
+@media (max-width: 640px) {
+  .visual:not(.compact) .scene {
+    aspect-ratio: auto;
+    align-items: flex-start;
+    min-height: 0;
+    padding: 6%;
+  }
+  .visual:not(.compact) .screen {
+    transform: none;
+    flex-shrink: 0;
+  }
+  .visual:not(.compact) .phones {
+    min-height: 0;
+  }
+}
+.journeyHint {
+  font-size: 0.75em;
+  color: #7684a4;
+  margin: -5px 0 13px;
+}
+.journeyStats {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 12px;
+  margin-top: 15px;
+}
+.journeyCard,
+.journeyWeek {
+  background: #fff;
+  border: 1px solid #edf1fb;
+  border-radius: 9px;
+  padding: 12px;
+  box-shadow: 0 3px 8px #3155ff05;
+}
+.journeyCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.journeyCard > div:last-child strong {
+  font-size: 0.82em;
+  display: block;
+  line-height: 1.3;
+}
+.journeyCard small {
+  font-size: 0.7em;
+  color: #7986a4;
+  display: block;
+  margin-top: 4px;
+}
+.journeyRing {
+  width: 48%;
+  aspect-ratio: 1;
+  position: relative;
+  flex-shrink: 0;
+}
+.journeyRing svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.journeyRing svg circle:last-child {
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--phase) * 0.72);
+}
+.journeyRing > strong {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 1.35em;
+}
+.journeyWeek > strong {
+  font-size: 0.85em;
+  display: block;
+  margin-bottom: 8px;
+}
+.journeyWeek > div {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 0.68em;
+  margin: 6px 0;
+}
+.journeyWeek i {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #d9f6ed;
+  color: #1ca38e;
+  display: grid;
+  place-items: center;
+  font-style: normal;
+}
+.journeyWeek > div:nth-child(3) i {
+  background: #e4eaff;
+  color: #3155ff;
+}
+.journeyWeek > div:nth-child(4) i {
+  background: #eee3ff;
+  color: #8763dd;
+}
+.journeyTitle {
+  margin: 16px 0 8px !important;
+  font-size: 0.85em !important;
+}
+.journeyLower {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 9px;
+}
+.journeyLower > div {
+  background: #fff;
+  border: 1px solid #edf1fb;
+  border-radius: 8px;
+  padding: 9px;
+}
+.journeyLesson {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  padding: 6px 0;
+}
+.journeyLesson .glyph {
+  font-size: 1.15em;
+  width: 27px;
+  height: 29px;
+  flex-shrink: 0;
+  background: #d9f5ee;
+  color: #159a8b;
+}
+.journeyLesson:nth-child(2) .glyph {
+  background: #e0e8ff;
+  color: #3155ff;
+}
+.journeyLesson:nth-child(3) .glyph {
+  background: #fff0cf;
+  color: #e7a525;
+}
+.journeyLesson strong {
+  font-size: 0.75em;
+  line-height: 1.25;
+  display: block;
+}
+.journeyLesson small {
+  font-size: 0.62em;
+  color: #8792ad;
+  display: block;
+  margin-top: 3px;
+}
+.journeyStudy > strong {
+  font-size: 0.75em;
+}
+.journeyStudy .trend {
+  border: 0;
+  padding: 0;
+  background: none;
+  margin-top: 28px;
+}
+.journeyStudy .panelHeading {
+  display: none;
+}
+.journeyStudy .weekLabels {
+  font-size: 0.5em;
+}
+.password > strong {
+  min-height: 1.2em;
+}
+.compact .screen{font-size:clamp(8px,1.9cqw,15px);}
+.compact .scheduleScreen .sidebar,.compact .scheduleScreen .constraints{display:none;}
+.compact .scheduleScreen{height:94%;width:95%;}
+.compact .scheduleScreen .dashboard{display:flex;flex-direction:column;padding:6% 5%;}
+.compact .schedulerBody{flex:1;min-height:0;}
+.compact .calendar{display:flex;flex-direction:column;}
+.compact .calendarRows{flex:1;min-height:0;}
+.compact .calendarGrid{grid-template-rows:repeat(9,minmax(0,1fr));background-size:20% 11.111%;}
+.compact .hours{grid-template-rows:repeat(9,minmax(0,1fr));}
+.compact .event{font-size:.82em;line-height:1.25;}
+@media(max-width:600px){.compact .scheduleScreen{height:330px;}.compact .scene{height:auto;aspect-ratio:auto;min-height:0;padding:6%;}.compact .screen{transform:none;}}

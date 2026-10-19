@@ -1,51 +1,54 @@
 .kunye {
-  margin-top: 40px;
+  margin-top: clamp(12px, 1.6vw, 22px);
 }
 .ic {
-  border-top: 1px solid var(--color-line);
-  min-height: 120px;
+  --u: clamp(0.78px, 0.125313vw, 1.684px);
+  position: relative;
+  min-height: calc(68 * var(--u));
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: calc(20 * var(--u));
   justify-content: space-between;
 }
+.ic::before {
+  content: '';
+  position: absolute;
+  left: 5.5%;
+  right: 5.5%;
+  top: 0;
+  border-top: 1px solid var(--color-line);
+}
 .ic p {
-  font-size: 11px;
+  font-size: calc(8 * var(--u));
   color: var(--color-muted);
 }
 .sag {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: calc(28 * var(--u));
 }
 .sosyal {
   display: flex;
-  gap: 18px;
+  gap: calc(17 * var(--u));
 }
 .sosyal a {
   display: grid;
   place-items: center;
-  min-width: 28px;
-  min-height: 40px;
+  min-height: 32px;
 }
-.sosyal a:hover {
-  color: var(--color-blue);
+.sosyal svg {
+  width: calc(16 * var(--u));
+  height: calc(16 * var(--u));
 }
 .sag nav {
   display: flex;
-  gap: 22px;
-  font-size: 11px;
-  font-weight: 650;
+  gap: calc(24 * var(--u));
+  font-size: calc(8 * var(--u));
 }
-.sag nav a:hover {
+.sag a:hover {
   color: var(--color-blue);
 }
-@media (max-width: 1050px) {
-  .ic {
-    flex-wrap: wrap;
-    gap: 18px;
-    padding-block: 28px;
-  }
+@media (max-width: 1000px) {
   .ic p span {
     display: none;
   }
@@ -55,7 +58,9 @@
 }
 @media (max-width: 600px) {
   .ic {
-    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-block: 20px;
+    gap: 12px;
   }
   .ic > a {
     width: 100%;
@@ -63,7 +68,8 @@
   .ic p {
     font-size: 10px;
   }
-  .sosyal {
-    gap: 12px;
+  .sosyal svg {
+    width: 20px;
+    height: 20px;
   }
 }

@@ -3,6 +3,8 @@ import { PROJELER } from '@/content/projeler'
 import { CV, ILETISIM, PROFIL, YAKLASIM } from '@/content/profil'
 import { projeYolu, t, type Dil } from '@/lib/i18n'
 import Hero from './Hero'
+import MotionScope from './MotionScope'
+import TechLogo from './TechLogo'
 import Icon from './Icon'
 import ProjectVisual from './ProjectVisual'
 import ProjectThumb from './ProjectThumb'
@@ -12,27 +14,27 @@ import stil from './AnaSayfa.module.css'
 const summaries: Record<string, { tr: string; en: string }> = {
   karnova: {
     tr: 'Öğrenciyi anlayan eğitim platformu.',
-    en: 'A learning platform that understands the student.',
+    en: 'An AI-powered learning platform.',
   },
   smartscheduler: {
     tr: 'Karmaşık planlar, anlaşılır arayüzler.',
-    en: 'Complex schedules, understandable interfaces.',
+    en: 'University timetables made understandable.',
   },
   'sismik-analiz': {
     tr: 'Deprem verisinde dürüst model değerlendirmesi.',
-    en: 'Honest model evaluation with earthquake data.',
+    en: 'Earthquake data analysis and visualization.',
   },
   fintrack: {
-    tr: 'Sıfır bağımlılıkla bütçe takibi.',
-    en: 'Budget tracking with zero dependencies.',
+    tr: 'Kişisel finans takip uygulaması.',
+    en: 'A personal finance tracker.',
   },
   'web-kutuphane': {
-    tr: 'Kitaplar, üyeler ve ödünç kayıtları.',
-    en: 'Books, members and lending records.',
+    tr: 'Kitapları keşfet, düzenle, her yerden eriş.',
+    en: 'A digital library system.',
   },
   'sifre-kasam': {
     tr: 'Çevrimdışı, şifreli parola kasası.',
-    en: 'An offline, encrypted password vault.',
+    en: 'An offline, encrypted password manager.',
   },
 }
 const principleTitles = {
@@ -46,6 +48,32 @@ const principleTitles = {
     'Report negative results honestly.',
     'Look underneath the dependency.',
   ],
+}
+const principleCopy = {
+  tr: [
+    'Varsayımlarla değil, ölçülebilir hedeflerle geliştiririm.',
+    'Dener, öğrenir, sonuç ne olursa olsun şeffaf şekilde paylaşırım.',
+    'Sadece kod yazmakla kalmam, kararların teknik ve iş tarafını da düşünürüm.',
+  ],
+  en: [
+    'I focus on metrics that actually show progress.',
+    'If something doesn’t work, I share it clearly.',
+    'I try to understand the root cause, not just the surface.',
+  ],
+}
+const projectTags: Record<string, { tr: string[]; en: string[] }> = {
+  karnova: {
+    tr: ['Backend & Yapay zekâ'],
+    en: ['Backend & AI'],
+  },
+  smartscheduler: {
+    tr: ['Frontend Lead'],
+    en: ['Frontend Lead'],
+  },
+  'sismik-analiz': { tr: ['Derin öğrenme'], en: ['Deep learning'] },
+  fintrack: { tr: ['Web geliştirme'], en: ['Web development'] },
+  'web-kutuphane': { tr: ['Full-stack'], en: ['Full-stack'] },
+  'sifre-kasam': { tr: ['Mobil geliştirme'], en: ['Mobile development'] },
 }
 const tools = [
   {
@@ -74,34 +102,18 @@ const tools = [
     names: ['Unity', 'C++', 'Java'],
   },
 ]
-const technologyColors: Record<string, string> = {
-  Django: '#168371',
-  'ASP.NET Core': '#6d42cb',
-  'Node.js': '#599e3b',
-  'Next.js': '#15223b',
-  React: '#1697bb',
-  Flutter: '#288be4',
-  PostgreSQL: '#3b6f9d',
-  MongoDB: '#45964d',
-  SQLite: '#348ec8',
-  PyTorch: '#ed6a39',
-  Git: '#ef6b48',
-  Docker: '#268cc6',
-  'GitHub Actions': '#488be9',
-  Unity: '#25364d',
-  'C++': '#2f72ad',
-  Java: '#dc733d',
-}
-
 export default function AnaSayfa({ dil }: { dil: Dil }) {
   const featured = PROJELER.slice(0, 2),
     more = PROJELER.slice(2)
   return (
     <>
       <Hero dil={dil} />
-      <section id="calismalar" className={'kabuk ' + stil.work}>
+      <section id="calismalar" className={`kabuk ${stil.work}`}>
         <div className={stil.sectionHeading}>
-          <h2>{dil === 'tr' ? 'Koddan fazlası.' : 'Beyond the code.'}</h2>
+          <h2>
+            {dil === 'tr' ? 'Koddan fazlası' : 'Beyond the code'}
+            <span>.</span>
+          </h2>
           <p>{dil === 'tr' ? 'Seçilmiş projeler' : 'Selected projects'}</p>
         </div>
         <div className={stil.featured}>
@@ -112,7 +124,11 @@ export default function AnaSayfa({ dil }: { dil: Dil }) {
                 <div>
                   <h3>{p.ad}</h3>
                   <p>{t(summaries[p.slug]!, dil)}</p>
-                  <span>{t(p.rol, dil)}</span>
+                  <span className={stil.tags}>
+                    {projectTags[p.slug]![dil].map((tag) => (
+                      <span key={tag}>{tag}</span>
+                    ))}
+                  </span>
                 </div>
                 <span className={stil.roundArrow} aria-hidden="true">
                   <Icon name="arrow-right" size={23} />
@@ -128,18 +144,16 @@ export default function AnaSayfa({ dil }: { dil: Dil }) {
               href={projeYolu(p.slug, dil)}
               className={stil.smallCard}
             >
-              <ProjectThumb slug={p.slug} />
+              <ProjectThumb slug={p.slug} dil={dil} />
               <h3>{p.ad}</h3>
               <p>{t(summaries[p.slug]!, dil)}</p>
               <span className={stil.smallMeta}>
-                {p.slug === 'sismik-analiz'
-                  ? 'Python · PyTorch'
-                  : p.slug === 'fintrack'
-                    ? 'JavaScript · Canvas 2D'
-                    : p.slug === 'web-kutuphane'
-                      ? 'Node.js · MongoDB'
-                      : 'Flutter · Dart'}
-                <span aria-hidden="true">
+                <span className={stil.tags}>
+                  {projectTags[p.slug]![dil].map((tag) => (
+                    <span key={tag}>{tag}</span>
+                  ))}
+                </span>
+                <span className={stil.smallArrow} aria-hidden="true">
                   <Icon name="arrow-right" size={16} />
                 </span>
               </span>
@@ -147,34 +161,38 @@ export default function AnaSayfa({ dil }: { dil: Dil }) {
           ))}
         </div>
       </section>
-      <section id="yaklasim" className={'kabuk ' + stil.approach}>
+      <section id="yaklasim" className={`kabuk ${stil.approach}`}>
         <div className={stil.sectionHeading}>
-          <h2>{dil === 'tr' ? 'Nasıl çalışırım?' : 'How I work.'}</h2>
-          <p>
-            {dil === 'tr'
-              ? 'Teknolojiyi, gerçek problemlere sade ve sürdürülebilir çözümler üretmek için kullanırım.'
-              : 'I use technology to build clear, sustainable solutions to real problems.'}
-          </p>
+          <h2>
+            {dil === 'tr' ? 'Nasıl çalışırım?' : 'How I work'}
+            <span>.</span>
+          </h2>
+          {true && (
+            <p>
+              {dil === 'tr'
+                ? 'Teknolojiyi, gerçek problemlere sade ve sürdürülebilir çözümler üretmek için kullanırım.'
+                : 'I use technology to build clear, sustainable solutions to real problems.'}
+            </p>
+          )}
         </div>
-        <div className={stil.principles}>
+        <MotionScope className={stil.principles}>
           {YAKLASIM.map((p, i) => (
             <article key={p.kanit}>
               <span className={stil.principleIcon}>
                 <Icon name={['chart', 'document', 'boxes'][i]!} size={38} />
               </span>
               <h3>{principleTitles[dil][i]}</h3>
-              <p>{t(p.metin, dil)}</p>
-              <Link href={projeYolu(p.kanit, dil)} className={stil.evidence}>
-                {PROJELER.find((project) => project.slug === p.kanit)!.ad}
-                <Icon name="external" size={13} />
-              </Link>
+              <p>{principleCopy[dil][i]}</p>
             </article>
           ))}
-        </div>
+        </MotionScope>
       </section>
-      <section id="hakkimda" className={'kabuk ' + stil.about}>
+      <section id="hakkimda" className={`kabuk ${stil.about}`}>
         <div className={stil.aboutCopy}>
-          <h2>{dil === 'tr' ? 'Hakkımda.' : 'About me.'}</h2>
+          <h2>
+            {dil === 'tr' ? 'Hakkımda' : 'About me'}
+            <span>.</span>
+          </h2>
           <p>
             {dil === 'tr'
               ? 'Topkapı Üniversitesi’nde yazılım mühendisliği okuyorum. Backend, yapay zekâ ve arayüzler üzerine çalışıyorum.'
@@ -190,11 +208,11 @@ export default function AnaSayfa({ dil }: { dil: Dil }) {
               <br />
               {dil === 'tr' ? 'Yazılım Mühendisliği' : 'Software Engineering'}
               <br />
-              2023 – 2027
+              <span className={stil.educationDates}>2023 – 2027</span>
             </p>
           </div>
         </div>
-        <div className={stil.aboutFact}>
+        <div className={`${stil.aboutFact} ${stil.location}`}>
           <Icon name="location" size={26} />
           <div>
             <h3>{dil === 'tr' ? 'Konum' : 'Location'}</h3>
@@ -208,20 +226,23 @@ export default function AnaSayfa({ dil }: { dil: Dil }) {
           </div>
         </div>
       </section>
-      <section id="yigin" className={'kabuk ' + stil.stack}>
+      <section id="yigin" className={`kabuk ${stil.stack}`}>
         <div className={stil.sectionHeading}>
           <h2>
             {dil === 'tr'
-              ? 'Birlikte kullandığım araçlar.'
-              : 'Tools I build with.'}
+              ? 'Birlikte kullandığım araçlar'
+              : 'Tools I build with'}
+            <span>.</span>
           </h2>
-          <p>
-            {dil === 'tr'
-              ? 'Projelere göre farklı araçlar ve teknolojiler kullanıyorum.'
-              : 'Different tools for different problems.'}
-          </p>
+          {true && (
+            <p>
+              {dil === 'tr'
+                ? 'Projelere göre farklı araçlar ve teknolojiler kullanıyorum.'
+                : 'Different tools for different problems.'}
+            </p>
+          )}
         </div>
-        <div className={stil.toolGroups}>
+        <MotionScope className={stil.toolGroups}>
           {tools.map((group, i) => (
             <div
               key={group.icon}
@@ -235,23 +256,8 @@ export default function AnaSayfa({ dil }: { dil: Dil }) {
               <ul>
                 {group.names.map((name) => (
                   <li key={name}>
-                    <span
-                      style={{ color: technologyColors[name] }}
-                      aria-hidden="true"
-                    >
-                      {name === 'Django'
-                        ? 'dj'
-                        : name === 'React'
-                          ? '⚛'
-                          : name === 'Docker'
-                            ? '▥'
-                            : name === 'Java'
-                              ? '♨'
-                              : name === 'MongoDB'
-                                ? '◆'
-                                : name === 'C++'
-                                  ? 'C⁺'
-                                  : name.slice(0, 1)}
+                    <span aria-hidden="true">
+                      <TechLogo name={name} size={15} />
                     </span>
                     {name}
                   </li>
@@ -259,56 +265,40 @@ export default function AnaSayfa({ dil }: { dil: Dil }) {
               </ul>
             </div>
           ))}
-        </div>
-        <p className={stil.languages}>
-          <span>{dil === 'tr' ? 'Diller' : 'Languages'}</span>TypeScript ·
-          JavaScript · Python · C# · Java · C · C++ · Dart · SQL
-        </p>
+        </MotionScope>
       </section>
-      <section id="iletisim" className={'kabuk ' + stil.contactWrap}>
+      <section id="iletisim" className={`kabuk ${stil.contactWrap}`}>
         <div className={stil.contact}>
           <div className={stil.contactCopy}>
             <h2>
-              {dil === 'tr' ? (
-                <>
-                  Birlikte ne
-                  <br />
-                  geliştirebiliriz?
-                </>
-              ) : (
-                'What could we build together?'
-              )}
+              <>
+                {dil === 'tr' ? 'Birlikte ne' : 'What could we'}
+                <br />
+                {dil === 'tr' ? 'geliştirebiliriz?' : 'build together?'}
+              </>
             </h2>
             <p>
               {dil === 'tr'
                 ? 'Fikirlerini dinlemek, yeni projeler konuşmak ve birlikte üretmek için buradayım.'
-                : 'I am here to listen, talk about new projects and build together.'}
+                : 'I’m here to hear your ideas, discuss new projects and build together.'}
             </p>
             <div className={stil.contactLinks}>
               <a href={'mailto:' + ILETISIM.eposta}>
                 <Icon name="mail" size={22} />
                 {ILETISIM.eposta}
               </a>
-              <a href={ILETISIM.github}>
-                <Icon name="github" size={22} />
-                {dil === 'tr'
-                  ? 'GitHub profilimi ziyaret et'
-                  : 'Visit my GitHub'}
-                <Icon name="external" size={15} />
-              </a>
               <a href={ILETISIM.linkedin}>
                 <Icon name="linkedin" size={22} />
                 {dil === 'tr'
                   ? 'LinkedIn profilimi ziyaret et'
-                  : 'Visit my LinkedIn'}
-                <Icon name="external" size={15} />
+                  : 'Visit my LinkedIn profile'}
+                <Icon name="arrow-right" size={15} />
               </a>
               <a href={CV[dil]} download>
                 <Icon name="document" size={22} />
                 {dil === 'tr' ? 'CV’mi indir' : 'Download CV'}
               </a>
             </div>
-            <p className={stil.availability}>{t(PROFIL.durum, dil)}</p>
           </div>
           <IletisimFormu dil={dil} />
         </div>

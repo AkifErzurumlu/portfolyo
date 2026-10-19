@@ -4,8 +4,8 @@ export default function Brand({ small = false }: { small?: boolean }) {
       style={{
         display: 'inline-flex',
         alignItems: 'center',
-        gap: small ? 10 : 14,
-        fontSize: small ? 17 : 21,
+        gap: 'clamp(10px, 1.4vw, 19px)',
+        fontSize: 'clamp(14px, 1.9vw, 25px)',
         fontWeight: 800,
         letterSpacing: '-.045em',
         whiteSpace: 'nowrap',
@@ -14,12 +14,17 @@ export default function Brand({ small = false }: { small?: boolean }) {
       <svg
         width={small ? 39 : 48}
         height={small ? 28 : 34}
-        viewBox="0 0 58 40"
+        viewBox="0 0 44 28"
         fill="currentColor"
-        style={{ color: 'var(--color-blue)', flexShrink: 0 }}
+        style={{
+          color: 'var(--color-blue)',
+          flexShrink: 0,
+          width: 'clamp(36px, 4.6vw, 62px)',
+          height: 'auto',
+        }}
         aria-hidden="true"
       >
-        <path d="M8 5h25l-5 7H13l-3 5h15l-5 7H6L0 34h25l5-8H17l3-5h13L43 4l15 30H47L42 23l-7 11H25L44 2h-9l-2 3H8Z" />
+        <path d="M11 2h16l-4 6H7zM6 11h16l-4 6h-8l-3 5h12l-4 6H0zM30 2l14 26h-8l-8-15-9 15h-8z" />
       </svg>
       <span>erzurumlu.dev</span>
     </span>

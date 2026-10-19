@@ -19,6 +19,7 @@ npm install
 npm run dev        # http://localhost:3000
 npm run build      # statik çıktı → out/
 npm run typecheck
+npm run verify:design
 ```
 
 ## Yapı
@@ -27,8 +28,8 @@ npm run typecheck
 app/
   (tr)/            Türkçe kök layout ve rotalar        →  /  ·  /projeler/[slug]
   (en)/            İngilizce kök layout ve rotalar     →  /en · /en/projects/[slug]
-  globals.css      Tasarım token'ları, açık + koyu tema
-  fonts.ts         next/font ile self-hosted Manrope
+  globals.css      Tasarım token'ları, ortak açık tema
+  fonts.ts         next/font ile self-hosted Inter
   sitemap.ts       İki dili hreflang ile eşleyen site haritası
 components/        Sunum bileşenleri, her biri kendi .module.css dosyasıyla
 content/           İçeriğin tek kaynağı — projeler, profil, arayüz metinleri

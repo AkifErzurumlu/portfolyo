@@ -1,9 +1,9 @@
 :root {
   color-scheme: light;
-  --color-bg: #f4f6fa;
-  --color-ink: #15223b;
-  --color-blue: #244bff;
-  --color-muted: #5f6d86;
+  --color-bg: #f3f7fe;
+  --color-ink: #060d32;
+  --color-blue: #174bff;
+  --color-muted: #707ca8;
   --color-line: #dce3f0;
   --color-soft: #e4e9ff;
   --kagit: var(--color-bg);
@@ -111,7 +111,7 @@ section[id] {
   width: 100%;
   max-width: var(--olcu);
   margin-inline: auto;
-  padding-inline: 32px;
+  padding-inline: min(5.5vw, 74px);
 }
 .gizli {
   position: absolute;
@@ -226,5 +226,15 @@ section[id] {
   body {
     background: white;
     color: #15223b;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .motion-scene {
+    --phase: 1 !important;
+  }
+}
+@media print {
+  .motion-scene {
+    --phase: 1 !important;
   }
 }

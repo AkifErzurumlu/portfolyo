@@ -101,3 +101,21 @@
     width: 30px;
   }
 }
+.thumb svg path[pathLength] {
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--phase));
+}
+.books span {
+  opacity: var(--phase);
+  translate: 0 calc((1 - var(--phase)) * 35px);
+}
+.books span:nth-child(even) {
+  translate: 0 calc((1 - var(--phase)) * -35px);
+}
+.vault {
+  opacity: var(--phase);
+  translate: 0 calc((1 - var(--phase)) * 20px);
+}
+.donut {
+  mask: conic-gradient(#000 calc(var(--phase) * 1turn), transparent 0);
+}

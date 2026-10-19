@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
+    "verify:design": "node scripts/verify-design.mjs",
     "postbuild": "node scripts/404-yaz.mjs"
   },
   "dependencies": {
